@@ -9,6 +9,7 @@
 <div>
     <p>Bonjour <t t-out="object.contact_name or ''"/>,</p>
     <p>Merci pour votre intérêt pour la Villa Marianne à Saly. Nous avons bien reçu votre demande et nous vous répondons rapidement.</p>
+    <p t-if="object.hbm_request == 'brochure'"><a t-att-href="object.hbm_brochure_url()">Télécharger le dossier complet (PDF)</a></p>
     <p>Cordialement,<br/>Villa Marianne</p>
 </div>
         </field>
@@ -22,6 +23,7 @@
 <div>
     <p>Hello <t t-out="object.contact_name or ''"/>,</p>
     <p>Thank you for your interest in Villa Marianne in Saly. We have received your request and will reply shortly.</p>
+    <p t-if="object.hbm_request == 'brochure'"><a t-att-href="object.hbm_brochure_url()">Download the full file (PDF)</a></p>
     <p>Kind regards,<br/>Villa Marianne</p>
 </div>
         </field>

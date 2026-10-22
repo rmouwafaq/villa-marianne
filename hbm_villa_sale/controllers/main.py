@@ -4,11 +4,12 @@ from markupsafe import Markup
 
 from odoo import http
 from odoo.http import request
-from odoo.tools import file_path
+
 
 from odoo.addons.website.controllers.main import Website
 
 from ..content import CONTENT, PAGE_PATHS
+from ..media import manifest
 
 
 def _hbm_sitemap(env, rule, qs):
@@ -21,16 +22,6 @@ def _hbm_sitemap(env, rule, qs):
 
 IMG_URL = "/hbm_villa_sale/static/img/"
 SPACE_ORDER = ["exterior", "pool", "aerial", "terraces", "interior", "night", "environment"]
-_MANIFEST = []
-
-
-def _manifest():
-    if not _MANIFEST:
-        with open(file_path("hbm_villa_sale/data/media_manifest.json"), encoding="utf-8") as handle:
-            _MANIFEST.extend(json.load(handle))
-    return _MANIFEST
-
-
 def _image_attrs(item, lang):
     """Attributs <img> responsive d'une entrée du manifeste."""
     widths = item["widths"]
@@ -48,7 +39,7 @@ def _image_attrs(item, lang):
 
 
 def _gallery(lang):
-    items = sorted((_image_attrs(m, lang) for m in _manifest()),
+    items = sorted((_image_attrs(m, lang) for m in manifest()),
                    key=lambda i: SPACE_ORDER.index(i["space"]))
     return items
 

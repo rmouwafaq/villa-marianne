@@ -10,6 +10,7 @@
         "data/property_data.xml",
         "data/mail_templates.xml",
         "data/cron.xml",
+        "report/brochure.xml",
         "views/property_views.xml",
         "views/res_config_settings_views.xml",
         "views/layout.xml",

@@ -1,3 +1,4 @@
+from . import test_brochure
 from . import test_i18n
 from . import test_lead
 from . import test_media

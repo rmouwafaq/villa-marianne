@@ -1,3 +1,4 @@
+import uuid
 from datetime import timedelta
 
 from odoo import fields, models
@@ -19,6 +20,13 @@ class CrmLead(models.Model):
     hbm_budget = fields.Char(string="Budget envisagé")
     hbm_lang = fields.Selection([("fr", "Français"), ("en", "English")], default="fr")
     hbm_followup_stage = fields.Integer(string="Relances envoyées", default=0, copy=False)
+
+    hbm_brochure_token = fields.Char(default=lambda self: uuid.uuid4().hex, copy=False, index=True)
+
+    def hbm_brochure_url(self):
+        self.ensure_one()
+        base = self.env["ir.config_parameter"].sudo().get_param("web.base.url")
+        return f"{base}/hbm/brochure/{self.hbm_brochure_token}"
 
     def _hbm_send(self, kind):
         """Met en file l'e-mail `kind` (confirm, followup1, followup2) dans la langue de la demande."""

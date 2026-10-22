@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_brochure" model="ir.actions.report">
+        <field name="name">Villa Marianne : dossier de présentation</field>
+        <field name="model">hbm.property</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hbm_villa_sale.report_brochure</field>
+        <field name="report_file">hbm_villa_sale.report_brochure</field>
+        <field name="print_report_name">'villa-marianne'</field>
+    </record>
+
+    <template id="report_brochure">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page" style="font-family: sans-serif; color: #222;">
+                    <h1 style="color: #1f4e5f;" t-out="title"/>
+                    <p style="font-size: 14pt;" t-out="c['pages']['home']['lead']"/>
+                    <h2 style="color: #b5532a;" t-out="doc.price_display()"/>
+                    <h2 t-out="c['facts_title']"/>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr t-foreach="facts" t-as="fact">
+                            <td style="padding: 4px 8px; font-weight: bold;" t-out="fact[1]"/>
+                            <td style="padding: 4px 8px;" t-out="fact[2]"/>
+                        </tr>
+                    </table>
+                    <t t-foreach="['home', 'villa', 'invest']" t-as="page_key">
+                        <t t-foreach="c['pages'][page_key]['sections']" t-as="sec">
+                            <h3 t-out="sec['h']"/>
+                            <p t-foreach="sec['p']" t-as="para" t-out="para"/>
+                            <ul t-if="sec['ul']">
+                                <li t-foreach="sec['ul']" t-as="item" t-out="item"/>
+                            </ul>
+                        </t>
+                    </t>
+                    <div style="page-break-before: always;">
+                        <t t-foreach="photos" t-as="photo">
+                            <img t-att-src="photo['src']" t-att-alt="photo['alt']"
+                                 style="width: 48%; margin: 1%; height: auto;"/>
+                        </t>
+                    </div>
+                    <h2 t-out="c['brochure']['contact_title']"/>
+                    <p t-out="c['brochure']['contact_text']"/>
+                    <p t-if="seller_email" t-out="seller_email"/>
+                    <p t-if="whatsapp"><t t-out="c['whatsapp']"/> : <t t-out="whatsapp"/></p>
+                    <p style="font-size: 9pt; color: #666;" t-out="c['brochure']['disclaimer']"/>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
