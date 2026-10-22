@@ -3,6 +3,7 @@
     <template id="page" name="Villa Marianne page">
         <t t-call="website.layout">
             <t t-set="additional_title" t-value="page['title']"/>
+            <t t-set="website_meta_description" t-value="page['meta']"/>
             <t t-set="no_header" t-value="True"/>
             <t t-set="no_footer" t-value="True"/>
             <header class="hbm-header">
@@ -35,6 +36,13 @@
                     <ul t-if="sec['ul']">
                         <li t-foreach="sec['ul']" t-as="item" t-out="item"/>
                     </ul>
+                </section>
+                <section t-if="page.get('faq')" class="hbm-section">
+                    <h2 t-out="c['faq_title']"/>
+                    <t t-foreach="page['faq']" t-as="item">
+                        <h3 t-out="item['q']"/>
+                        <p t-out="item['a']"/>
+                    </t>
                 </section>
                 <section t-if="key in ('home', 'villa')" class="hbm-section">
                     <h2 t-out="c['facts_title']"/>

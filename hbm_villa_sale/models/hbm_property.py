@@ -1,5 +1,7 @@
 from odoo import api, fields, models
 
+from ..content import CONTENT
+
 RATE_PARAMS = {"MAD": "hbm_villa_sale.rate_mad", "CHF": "hbm_villa_sale.rate_chf"}
 
 
@@ -48,6 +50,62 @@ class HbmProperty(models.Model):
             ("legal", self.legal_status or c["on_request"]),
         ]
         return [(key, labels[key], value) for key, value in values]
+
+    def json_ld(self, lang, url=None, image=None):
+        """Données structurées schema.org de l'annonce (RealEstateListing + Offer + Place)."""
+        self.ensure_one()
+        home = CONTENT[lang]["pages"]["home"]
+        data = {
+            "@context": "https://schema.org",
+            "@type": "RealEstateListing",
+            "name": home["title"].split(" | ")[0],
+            "description": home["meta"],
+            "inLanguage": lang,
+            "offers": {
+                "@type": "Offer",
+                "price": self.price,
+                "priceCurrency": self.currency_id.name,
+                "availability": "https://schema.org/InStock",
+            },
+            "contentLocation": {
+                "@type": "Place",
+                "name": "Saly",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Saly",
+                    "addressCountry": "SN",
+                },
+            },
+        }
+        if url:
+            data["url"] = url
+        if image:
+            data["image"] = image
+        return data
+
+    def seo_graph(self, lang, key, url=None, image=None, base_url=None):
+        """Liste JSON-LD d'une page : organisation, annonce (accueil/villa), FAQ (achat)."""
+        self.ensure_one()
+        c = CONTENT[lang]
+        organization = {"@type": "Organization", "name": c["site"]}
+        if base_url:
+            organization["url"] = base_url
+        graph = [organization]
+        if key in ("home", "villa"):
+            listing = self.json_ld(lang, url=url, image=image)
+            listing.pop("@context")
+            graph.append(listing)
+        faq = c["pages"][key].get("faq")
+        if faq:
+            graph.append({
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {"@type": "Question", "name": item["q"],
+                     "acceptedAnswer": {"@type": "Answer", "text": item["a"]}}
+                    for item in faq
+                ],
+            })
+        return {"@context": "https://schema.org", "@graph": graph}
 
     @api.model
     def get_main(self):

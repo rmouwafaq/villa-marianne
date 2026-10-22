@@ -24,6 +24,7 @@ FR = {
     "price_label": "Prix",
     "on_request": "sur demande",
     "facts_title": "Chiffres clés",
+    "faq_title": "Questions fréquentes",
     "fact_labels": {
         "price": "Prix", "area": "Surface", "year": "Construction",
         "beach": "Distance de la plage", "suites": "Suites et chambres",
@@ -128,6 +129,14 @@ FR = {
                  "p": ["Ces informations sont générales et non contractuelles. Les conditions d'acquisition par un non-résident doivent être confirmées par un notaire sénégalais."],
                  "ul": []},
             ],
+            "faq": [
+                {"q": "Un étranger peut-il acheter un bien au Sénégal ?",
+                 "a": "En principe oui, mais les conditions dépendent du statut foncier du bien. Un notaire sénégalais doit les confirmer avant toute signature."},
+                {"q": "Peut-on visiter la villa à distance ?",
+                 "a": "Oui, une visite en visio est possible, ainsi qu'une visite sur place sur rendez-vous."},
+                {"q": "Quels documents sont communiqués ?",
+                 "a": "Le dossier complet, sur demande, présente le bien, ses caractéristiques et les documents disponibles."},
+            ],
         },
         "contact": {
             "title": "Contact : demander le dossier ou visiter | Villa Marianne",
@@ -161,6 +170,7 @@ EN = {
     "price_label": "Price",
     "on_request": "on request",
     "facts_title": "Key figures",
+    "faq_title": "Frequently asked questions",
     "fact_labels": {
         "price": "Price", "area": "Area", "year": "Built",
         "beach": "Distance to the beach", "suites": "Suites and rooms",
@@ -265,6 +275,14 @@ EN = {
                  "p": ["This information is general and not contractual. The conditions for a non-resident to buy must be confirmed by a Senegalese notary."],
                  "ul": []},
             ],
+            "faq": [
+                {"q": "Can a foreigner buy property in Senegal?",
+                 "a": "In principle yes, but the conditions depend on the land title of the property. A Senegalese notary must confirm them before anything is signed."},
+                {"q": "Can the villa be visited remotely?",
+                 "a": "Yes, a video visit is possible, as well as an on-site visit by appointment."},
+                {"q": "Which documents are provided?",
+                 "a": "The full file, on request, describes the property, its features and the available documents."},
+            ],
         },
         "contact": {
             "title": "Contact: request the file or visit | Villa Marianne",
@@ -274,7 +292,7 @@ EN = {
         },
         "legal": {
             "title": "Legal notice | Villa Marianne",
-            "meta": "Legal notice and privacy policy of the Villa Marianne sale website.",
+            "meta": "Legal notice and privacy policy of the website selling Villa Marianne, a luxury villa in Saly, Senegal.",
             "lead": "Legal notice and privacy.",
             "sections": [
                 {"h": "Publisher",
