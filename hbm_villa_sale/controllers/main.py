@@ -47,6 +47,10 @@ def _gallery(lang):
 class HbmVillaSale(Website):
 
     def _hbm_render(self, key):
+        # UTM conservés dans la session serveur (pas de cookie supplémentaire avant consentement)
+        for utm in ("utm_source", "utm_medium", "utm_campaign"):
+            if request.params.get(utm):
+                request.session["hbm_" + utm] = request.params[utm][:100]
         lang = "en" if (request.env.lang or "").startswith("en") else "fr"
         c = CONTENT[lang]
         prop = request.env["hbm.property"].sudo().get_main()
@@ -75,6 +79,7 @@ class HbmVillaSale(Website):
             "ld_json": ld_json,
             "status": status if status in c["form"]["status"] else None,
             "whatsapp_url": whatsapp_url,
+            "gtm_id": request.env["ir.config_parameter"].sudo().get_param("hbm_villa_sale.gtm_id") or None,
             "hbm_seo": {"title": c["pages"][key]["title"], "og_image": og_image,
                         "locale": "fr_FR" if lang == "fr" else "en_US", "url": page_url},
             "key": key,

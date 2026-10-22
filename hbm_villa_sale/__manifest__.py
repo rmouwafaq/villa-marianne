@@ -19,7 +19,11 @@
         "data/website_languages.xml",
     ],
     "assets": {
-        "web.assets_frontend": ["hbm_villa_sale/static/src/css/villa.css"],
+        "web.assets_frontend": [
+            "hbm_villa_sale/static/src/css/villa.css",
+            "hbm_villa_sale/static/src/js/consent.js",
+            "hbm_villa_sale/static/src/js/tracking.js",
+        ],
     },
     "application": True,
     "installable": True,

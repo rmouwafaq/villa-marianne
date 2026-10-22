@@ -77,9 +77,9 @@ class HbmLead(http.Controller):
             "hbm_request": request_kind if request_kind in REQUESTS else "brochure",
             "hbm_budget": post.get("budget") or False,
             "hbm_lang": lang,
-            "source_id": _utm("utm.source", post.get("utm_source")),
-            "campaign_id": _utm("utm.campaign", post.get("utm_campaign")),
-            "medium_id": _utm("utm.medium", post.get("utm_medium")),
+            "source_id": _utm("utm.source", post.get("utm_source") or request.session.get("hbm_utm_source")),
+            "campaign_id": _utm("utm.campaign", post.get("utm_campaign") or request.session.get("hbm_utm_campaign")),
+            "medium_id": _utm("utm.medium", post.get("utm_medium") or request.session.get("hbm_utm_medium")),
         })
         lead._hbm_send("confirm")
         lead._hbm_notify_seller()

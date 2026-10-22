@@ -59,6 +59,10 @@ FR = {
         "contact_text": "Pour visiter ou obtenir les documents : écrivez-nous via le site ou par WhatsApp.",
         "disclaimer": "Document informatif, non contractuel. Statut foncier et conditions d'acquisition à confirmer avec un notaire sénégalais.",
     },
+    "consent": {
+        "text": "Ce site peut utiliser des cookies de mesure d'audience, uniquement avec votre accord.",
+        "accept": "Accepter", "refuse": "Refuser",
+    },
     "pages": {
         "home": {
             "title": "Villa à vendre à Saly, Sénégal | Villa Marianne",
@@ -223,6 +227,10 @@ EN = {
         "cover": "Presentation file", "contact_title": "Contact",
         "contact_text": "To visit or obtain the documents: write to us through the website or on WhatsApp.",
         "disclaimer": "Information only, not contractual. Land title and purchase conditions to be confirmed with a Senegalese notary.",
+    },
+    "consent": {
+        "text": "This site may use audience-measurement cookies, only with your consent.",
+        "accept": "Accept", "refuse": "Decline",
     },
     "pages": {
         "home": {

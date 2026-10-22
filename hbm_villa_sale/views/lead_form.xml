@@ -2,7 +2,7 @@
 <odoo>
     <template id="contact_form" name="Villa Marianne contact form">
         <t t-set="f" t-value="c['form']"/>
-        <p t-if="status" class="hbm-status" role="status" t-out="f['status'][status]"/>
+        <p t-if="status" class="hbm-status" role="status" t-att-data-status="status" t-out="f['status'][status]"/>
         <form class="hbm-form" action="/hbm/lead" method="post">
             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
             <input type="hidden" name="lang" t-att-value="c['lang']"/>
@@ -29,9 +29,6 @@
             </label>
             <label><span t-out="f['budget']"/> <input type="text" name="budget"/></label>
             <label><span t-out="f['message']"/> <textarea name="message" rows="4"/></label>
-            <input type="hidden" name="utm_source" id="hbm_utm_source"/>
-            <input type="hidden" name="utm_campaign" id="hbm_utm_campaign"/>
-            <input type="hidden" name="utm_medium" id="hbm_utm_medium"/>
             <button type="submit" class="hbm-btn" t-out="f['submit']"/>
             <p class="hbm-privacy" t-out="f['privacy']"/>
         </form>

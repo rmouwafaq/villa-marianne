@@ -10,6 +10,8 @@ class ResConfigSettings(models.TransientModel):
         string="Taux EUR → CHF", config_parameter="hbm_villa_sale.rate_chf")
     hbm_seller_email = fields.Char(
         string="E-mail du vendeur", config_parameter="hbm_villa_sale.seller_email")
+    hbm_gtm_id = fields.Char(
+        string="Identifiant Google Tag Manager (GTM-XXXX)", config_parameter="hbm_villa_sale.gtm_id")
     hbm_whatsapp = fields.Char(
         string="WhatsApp (format international)",
         config_parameter="hbm_villa_sale.whatsapp")

@@ -82,6 +82,12 @@
                 <a t-att-href="paths['legal']" t-out="c['legal_link']"/>
                 <a t-if="whatsapp_url" class="hbm-whatsapp" t-att-href="whatsapp_url" t-out="c['whatsapp']"/>
             </footer>
+            <div t-if="gtm_id" id="hbm-consent" class="hbm-consent" t-att-data-gtm-id="gtm_id" hidden="hidden"
+                 role="dialog" aria-live="polite">
+                <p t-out="c['consent']['text']"/>
+                <button type="button" class="hbm-btn" data-hbm-consent="granted" t-out="c['consent']['accept']"/>
+                <button type="button" class="hbm-btn hbm-btn-alt" data-hbm-consent="denied" t-out="c['consent']['refuse']"/>
+            </div>
         </t>
     </template>
 </odoo>

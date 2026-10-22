@@ -12,6 +12,9 @@
                             <field name="hbm_rate_mad"/>
                             <field name="hbm_rate_chf"/>
                         </setting>
+                        <setting string="Suivi des conversions (après consentement)">
+                            <field name="hbm_gtm_id"/>
+                        </setting>
                         <setting string="Contact vendeur">
                             <field name="hbm_seller_email"/>
                             <field name="hbm_whatsapp"/>
