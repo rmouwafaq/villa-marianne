@@ -74,11 +74,16 @@ class HbmVillaSale(Website):
         graph = prop.seo_graph(lang, key, url=page_url, image=og_image, base_url=host)
         # "<" échappé : le JSON est inséré tel quel dans un bloc <script>
         ld_json = Markup(json.dumps(graph, ensure_ascii=False).replace("<", "\\u003c"))
+        status = request.params.get("status")
+        digits = "".join(ch for ch in (request.env["ir.config_parameter"].sudo().get_param("hbm_villa_sale.whatsapp") or "") if ch.isdigit())
+        whatsapp_url = f"https://wa.me/{digits}" if digits else None
         gallery = _gallery(lang) if key in ("home", "villa") else []
         return request.render("hbm_villa_sale.page", {
             "gallery": gallery if key == "villa" else [],
             "hero": next((i for i in gallery if i["hero"]), None) if key == "home" else None,
             "ld_json": ld_json,
+            "status": status if status in c["form"]["status"] else None,
+            "whatsapp_url": whatsapp_url,
             "hbm_seo": {"title": c["pages"][key]["title"], "og_image": og_image,
                         "locale": "fr_FR" if lang == "fr" else "en_US", "url": page_url},
             "key": key,

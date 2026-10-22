@@ -42,6 +42,18 @@ FR = {
     "switch": "English",
     "footer": "Villa Marianne, Saly, Sénégal. Annonce à titre informatif.",
     "legal_link": "Mentions légales",
+    "form": {
+        "name": "Nom et prénom", "email": "E-mail", "phone": "Téléphone ou WhatsApp",
+        "country": "Pays de résidence", "profile": "Votre projet", "budget": "Budget envisagé (facultatif)",
+        "request": "Votre demande", "message": "Message (facultatif)", "submit": "Envoyer ma demande",
+        "countries": {"FR": "France", "BE": "Belgique", "CH": "Suisse", "MA": "Maroc", "SN": "Sénégal", "OTHER": "Autre pays"},
+        "profiles": {"investor": "Investissement", "second_home": "Résidence secondaire", "diaspora": "Projet familial ou retour au pays"},
+        "requests": {"brochure": "Recevoir le dossier complet", "visit_onsite": "Visite sur place", "visit_video": "Visite en visio"},
+        "status": {"ok": "Merci, votre demande est bien enregistrée. Vous recevez un e-mail de confirmation.",
+                   "error": "Votre demande n'a pas pu être envoyée : vérifiez votre nom et votre adresse e-mail.",
+                   "rate": "Trop de demandes envoyées. Merci de réessayer dans une minute."},
+        "privacy": "Vos données servent uniquement à répondre à votre demande.",
+    },
     "pages": {
         "home": {
             "title": "Villa à vendre à Saly, Sénégal | Villa Marianne",
@@ -190,6 +202,18 @@ EN = {
     "switch": "Français",
     "footer": "Villa Marianne, Saly, Senegal. Listing for information only.",
     "legal_link": "Legal notice",
+    "form": {
+        "name": "Full name", "email": "Email", "phone": "Phone or WhatsApp",
+        "country": "Country of residence", "profile": "Your project", "budget": "Planned budget (optional)",
+        "request": "Your request", "message": "Message (optional)", "submit": "Send my request",
+        "countries": {"FR": "France", "BE": "Belgium", "CH": "Switzerland", "MA": "Morocco", "SN": "Senegal", "OTHER": "Other country"},
+        "profiles": {"investor": "Investment", "second_home": "Second home", "diaspora": "Family project or return home"},
+        "requests": {"brochure": "Receive the full file", "visit_onsite": "On-site visit", "visit_video": "Video visit"},
+        "status": {"ok": "Thank you, your request has been recorded. You will receive a confirmation email.",
+                   "error": "Your request could not be sent: please check your name and email address.",
+                   "rate": "Too many requests sent. Please try again in a minute."},
+        "privacy": "Your data is used only to answer your request.",
+    },
     "pages": {
         "home": {
             "title": "Villa for sale in Saly, Senegal | Villa Marianne",

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="contact_form" name="Villa Marianne contact form">
+        <t t-set="f" t-value="c['form']"/>
+        <p t-if="status" class="hbm-status" role="status" t-out="f['status'][status]"/>
+        <form class="hbm-form" action="/hbm/lead" method="post">
+            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+            <input type="hidden" name="lang" t-att-value="c['lang']"/>
+            <p class="hbm-hp" aria-hidden="true">
+                <label>Site web <input type="text" name="company_site" tabindex="-1" autocomplete="off"/></label>
+            </p>
+            <label><span t-out="f['name']"/> <input type="text" name="name" required="required"/></label>
+            <label><span t-out="f['email']"/> <input type="email" name="email" required="required"/></label>
+            <label><span t-out="f['phone']"/> <input type="tel" name="phone"/></label>
+            <label><span t-out="f['country']"/>
+                <select name="country">
+                    <option t-foreach="f['countries']" t-as="code" t-att-value="code" t-out="f['countries'][code]"/>
+                </select>
+            </label>
+            <label><span t-out="f['profile']"/>
+                <select name="profile">
+                    <option t-foreach="f['profiles']" t-as="code" t-att-value="code" t-out="f['profiles'][code]"/>
+                </select>
+            </label>
+            <label><span t-out="f['request']"/>
+                <select name="request">
+                    <option t-foreach="f['requests']" t-as="code" t-att-value="code" t-out="f['requests'][code]"/>
+                </select>
+            </label>
+            <label><span t-out="f['budget']"/> <input type="text" name="budget"/></label>
+            <label><span t-out="f['message']"/> <textarea name="message" rows="4"/></label>
+            <input type="hidden" name="utm_source" id="hbm_utm_source"/>
+            <input type="hidden" name="utm_campaign" id="hbm_utm_campaign"/>
+            <input type="hidden" name="utm_medium" id="hbm_utm_medium"/>
+            <button type="submit" class="hbm-btn" t-out="f['submit']"/>
+            <p class="hbm-privacy" t-out="f['privacy']"/>
+        </form>
+    </template>
+</odoo>

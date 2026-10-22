@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="mail_confirm_fr" model="mail.template">
+        <field name="name">Villa Marianne : confirmation (FR)</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="subject">Villa Marianne : nous avons bien reçu votre demande</field>
+        <field name="email_to">{{ object.email_from }}</field>
+        <field name="body_html" type="html">
+<div>
+    <p>Bonjour <t t-out="object.contact_name or ''"/>,</p>
+    <p>Merci pour votre intérêt pour la Villa Marianne à Saly. Nous avons bien reçu votre demande et nous vous répondons rapidement.</p>
+    <p>Cordialement,<br/>Villa Marianne</p>
+</div>
+        </field>
+    </record>
+    <record id="mail_confirm_en" model="mail.template">
+        <field name="name">Villa Marianne: confirmation (EN)</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="subject">Villa Marianne: we have received your request</field>
+        <field name="email_to">{{ object.email_from }}</field>
+        <field name="body_html" type="html">
+<div>
+    <p>Hello <t t-out="object.contact_name or ''"/>,</p>
+    <p>Thank you for your interest in Villa Marianne in Saly. We have received your request and will reply shortly.</p>
+    <p>Kind regards,<br/>Villa Marianne</p>
+</div>
+        </field>
+    </record>
+    <record id="mail_followup1_fr" model="mail.template">
+        <field name="name">Villa Marianne : relance J+3 (FR)</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="subject">Villa Marianne : avez-vous pu consulter notre dossier ?</field>
+        <field name="email_to">{{ object.email_from }}</field>
+        <field name="body_html" type="html">
+<div>
+    <p>Bonjour <t t-out="object.contact_name or ''"/>,</p>
+    <p>Avez-vous pu consulter les informations sur la Villa Marianne ? Nous restons disponibles pour répondre à vos questions.</p>
+    <p>Cordialement,<br/>Villa Marianne</p>
+</div>
+        </field>
+    </record>
+    <record id="mail_followup1_en" model="mail.template">
+        <field name="name">Villa Marianne: follow-up day 3 (EN)</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="subject">Villa Marianne: did you get a chance to look at the file?</field>
+        <field name="email_to">{{ object.email_from }}</field>
+        <field name="body_html" type="html">
+<div>
+    <p>Hello <t t-out="object.contact_name or ''"/>,</p>
+    <p>Did you get a chance to look at the information about Villa Marianne? We are happy to answer any question.</p>
+    <p>Kind regards,<br/>Villa Marianne</p>
+</div>
+        </field>
+    </record>
+    <record id="mail_followup2_fr" model="mail.template">
+        <field name="name">Villa Marianne : relance J+10 (FR)</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="subject">Villa Marianne : une visite vous intéresse-t-elle ?</field>
+        <field name="email_to">{{ object.email_from }}</field>
+        <field name="body_html" type="html">
+<div>
+    <p>Bonjour <t t-out="object.contact_name or ''"/>,</p>
+    <p>Une visite de la villa, sur place ou en visio, vous intéresserait-elle ? Répondez simplement à ce message pour convenir d'un rendez-vous.</p>
+    <p>Cordialement,<br/>Villa Marianne</p>
+</div>
+        </field>
+    </record>
+    <record id="mail_followup2_en" model="mail.template">
+        <field name="name">Villa Marianne: follow-up day 10 (EN)</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="subject">Villa Marianne: would you like to visit?</field>
+        <field name="email_to">{{ object.email_from }}</field>
+        <field name="body_html" type="html">
+<div>
+    <p>Hello <t t-out="object.contact_name or ''"/>,</p>
+    <p>Would you like to visit the villa, on site or by video? Simply reply to this message to arrange a time.</p>
+    <p>Kind regards,<br/>Villa Marianne</p>
+</div>
+        </field>
+    </record>
+</odoo>

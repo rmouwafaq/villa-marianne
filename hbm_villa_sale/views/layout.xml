@@ -57,6 +57,9 @@
                         </div>
                     </t>
                 </section>
+                <section t-if="key == 'contact'" class="hbm-section">
+                    <t t-call="hbm_villa_sale.contact_form"/>
+                </section>
                 <section t-if="page.get('faq')" class="hbm-section">
                     <h2 t-out="c['faq_title']"/>
                     <t t-foreach="page['faq']" t-as="item">
@@ -77,6 +80,7 @@
             <footer class="hbm-footer">
                 <p t-out="c['footer']"/>
                 <a t-att-href="paths['legal']" t-out="c['legal_link']"/>
+                <a t-if="whatsapp_url" class="hbm-whatsapp" t-att-href="whatsapp_url" t-out="c['whatsapp']"/>
             </footer>
         </t>
     </template>
