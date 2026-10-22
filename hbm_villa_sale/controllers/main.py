@@ -73,7 +73,10 @@ class HbmVillaSale(Website):
             path = path[3:] or "/"
         fr_url = host + path
         en_url = host + "/en" + ("" if path == "/" else path)
-        alt_path = fr_url if lang == "en" else en_url
+        # Lien de changement de langue : adresse réellement utilisée par le visiteur (web.base.url peut
+        # être faux), sans schéma pour qu'Odoo ne le re-préfixe pas. « /fr/ » mémorise le choix du français.
+        switch_host = "//" + request.httprequest.host
+        alt_path = switch_host + ("/fr" if lang == "en" else "/en") + ("" if path == "/" else path)
         page_url = host + path if landing else (en_url if lang == "en" else fr_url)
         og_image = host + "/hbm_villa_sale/static/img/og-default.jpg"
         graph = prop.seo_graph(lang, "blog" if article else key, url=page_url,
