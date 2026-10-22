@@ -1,0 +1,509 @@
+[
+ {
+  "name": "courtyard-palm",
+  "space": "exterior",
+  "alt_fr": "Cour carrelée, palmier et façade de la villa",
+  "alt_en": "Tiled courtyard, palm tree and villa facade",
+  "recent": true,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.75,
+  "hero": true
+ },
+ {
+  "name": "villa-facade-garden",
+  "space": "exterior",
+  "alt_fr": "Façade de la villa et piscine derrière les agrumes",
+  "alt_en": "Villa facade and pool behind the citrus trees",
+  "recent": true,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "facade-terraces",
+  "space": "exterior",
+  "alt_fr": "Façade à deux niveaux avec terrasses",
+  "alt_en": "Two-level facade with terraces",
+  "recent": true,
+  "widths": [
+   640,
+   1080
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "facade-two-levels",
+  "space": "exterior",
+  "alt_fr": "Façade de la villa et piscine vues de la cour",
+  "alt_en": "Villa facade and pool seen from the courtyard",
+  "recent": false,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "courtyard-pool",
+  "space": "exterior",
+  "alt_fr": "Cour carrelée avec la piscine et les bains de soleil",
+  "alt_en": "Tiled courtyard with the pool and sun loungers",
+  "recent": false,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "courtyard-arcades",
+  "space": "exterior",
+  "alt_fr": "Cour et arcades de la villa",
+  "alt_en": "Courtyard and arcades of the villa",
+  "recent": false,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "facade-loungers",
+  "space": "exterior",
+  "alt_fr": "Façade et piscine avec transats bleus",
+  "alt_en": "Facade and pool with blue sun loungers",
+  "recent": false,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "facade-courtyard",
+  "space": "exterior",
+  "alt_fr": "Villa vue depuis la cour et la piscine",
+  "alt_en": "Villa seen from the courtyard and pool",
+  "recent": false,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "circle-terrace",
+  "space": "exterior",
+  "alt_fr": "Terrasse circulaire devant la piscine",
+  "alt_en": "Circular terrace in front of the pool",
+  "recent": false,
+  "widths": [
+   640,
+   1080
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "bougainvillea-view",
+  "space": "exterior",
+  "alt_fr": "Vue sur la piscine à travers les bougainvilliers",
+  "alt_en": "View of the pool through the bougainvillea",
+  "recent": false,
+  "widths": [
+   640,
+   1080
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "pool-garden-view",
+  "space": "pool",
+  "alt_fr": "Piscine entourée de jardin et de fauteuils",
+  "alt_en": "Pool surrounded by garden and armchairs",
+  "recent": true,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.5625,
+  "hero": false
+ },
+ {
+  "name": "pool-black-facade",
+  "space": "pool",
+  "alt_fr": "Piscine carrelée devant la façade noire et blanche",
+  "alt_en": "Tiled pool in front of the black and white facade",
+  "recent": false,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "pool-sun-loungers",
+  "space": "pool",
+  "alt_fr": "Piscine et transats sous les arbres",
+  "alt_en": "Pool and sun loungers under the trees",
+  "recent": false,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "pool-wide",
+  "space": "pool",
+  "alt_fr": "Grande piscine carrelée et éclairée",
+  "alt_en": "Large tiled and lit swimming pool",
+  "recent": false,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "pool-arch",
+  "space": "pool",
+  "alt_fr": "Piscine vue depuis la galerie à arcades",
+  "alt_en": "Pool seen from the arcaded gallery",
+  "recent": false,
+  "widths": [
+   640,
+   1080
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "pool-frangipani",
+  "space": "pool",
+  "alt_fr": "Piscine et frangipanier en pot",
+  "alt_en": "Pool and potted frangipani",
+  "recent": false,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 1.3333,
+  "hero": false
+ },
+ {
+  "name": "pool-night",
+  "space": "pool",
+  "alt_fr": "Piscine éclairée le soir",
+  "alt_en": "Pool lit up in the evening",
+  "recent": false,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.562,
+  "hero": false
+ },
+ {
+  "name": "aerial-solar-roofs",
+  "space": "aerial",
+  "alt_fr": "Vue aérienne de la villa, de ses toits et de ses panneaux solaires",
+  "alt_en": "Aerial view of the villa, its roofs and solar panels",
+  "recent": true,
+  "widths": [
+   640,
+   960
+  ],
+  "ratio": 0.5625,
+  "hero": false
+ },
+ {
+  "name": "aerial-pool-garden",
+  "space": "aerial",
+  "alt_fr": "Vue aérienne de la villa, de sa piscine et de son jardin",
+  "alt_en": "Aerial view of the villa, its pool and its garden",
+  "recent": true,
+  "widths": [
+   640,
+   960
+  ],
+  "ratio": 0.5625,
+  "hero": false
+ },
+ {
+  "name": "aerial-complex",
+  "space": "aerial",
+  "alt_fr": "Vue aérienne de l'ensemble de la propriété",
+  "alt_en": "Aerial view of the whole property",
+  "recent": false,
+  "widths": [
+   640,
+   960
+  ],
+  "ratio": 0.5625,
+  "hero": false
+ },
+ {
+  "name": "aerial-top-down",
+  "space": "aerial",
+  "alt_fr": "Vue du dessus : piscine, toits et panneaux solaires",
+  "alt_en": "Top-down view: pool, roofs and solar panels",
+  "recent": false,
+  "widths": [
+   640,
+   960
+  ],
+  "ratio": 0.5625,
+  "hero": false
+ },
+ {
+  "name": "garden-citrus-courtyard",
+  "space": "terraces",
+  "alt_fr": "Cour plantée d'agrumes avec dallage en mosaïque",
+  "alt_en": "Courtyard planted with citrus trees and mosaic paving",
+  "recent": true,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "garden-flamboyant",
+  "space": "terraces",
+  "alt_fr": "Jardin, flamboyant en fleurs et piscine",
+  "alt_en": "Garden, flowering flame tree and pool",
+  "recent": false,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "terrace-dining-outdoors",
+  "space": "terraces",
+  "alt_fr": "Terrasse avec coin repas extérieur",
+  "alt_en": "Terrace with outdoor dining area",
+  "recent": false,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "covered-terrace-steps",
+  "space": "terraces",
+  "alt_fr": "Terrasse couverte et escalier en pierre",
+  "alt_en": "Covered terrace and stone steps",
+  "recent": false,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "staircase-terrace",
+  "space": "terraces",
+  "alt_fr": "Escalier blanc et terrasse à l'étage",
+  "alt_en": "White staircase and upper-floor terrace",
+  "recent": false,
+  "widths": [
+   640,
+   1080
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "terrace-table-pool",
+  "space": "terraces",
+  "alt_fr": "Grande table de terrasse près de la piscine",
+  "alt_en": "Large terrace table next to the pool",
+  "recent": false,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "dining-room",
+  "space": "interior",
+  "alt_fr": "Salle à manger avec vue sur la piscine",
+  "alt_en": "Dining room overlooking the pool",
+  "recent": true,
+  "widths": [
+   640,
+   1280
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "living-room",
+  "space": "interior",
+  "alt_fr": "Salon et coin télévision climatisé",
+  "alt_en": "Air-conditioned living room and TV area",
+  "recent": true,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "courtyard-night",
+  "space": "night",
+  "alt_fr": "Cour et façade éclairées la nuit",
+  "alt_en": "Courtyard and facade lit at night",
+  "recent": false,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.562,
+  "hero": false
+ },
+ {
+  "name": "beach-saly",
+  "space": "environment",
+  "alt_fr": "Plage de Saly et ses cocotiers",
+  "alt_en": "Saly beach and its coconut palms",
+  "recent": false,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "beach-sand",
+  "space": "environment",
+  "alt_fr": "Longue plage de sable de la Petite Côte",
+  "alt_en": "Long sandy beach of the Petite Côte",
+  "recent": false,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.6651,
+  "hero": false
+ },
+ {
+  "name": "palm-lagoon",
+  "space": "environment",
+  "alt_fr": "Palmiers au bord de la lagune",
+  "alt_en": "Palm trees by the lagoon",
+  "recent": false,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.6651,
+  "hero": false
+ },
+ {
+  "name": "pirogues",
+  "space": "environment",
+  "alt_fr": "Pirogues traditionnelles sur la lagune",
+  "alt_en": "Traditional pirogues on the lagoon",
+  "recent": false,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "giraffes",
+  "space": "environment",
+  "alt_fr": "Girafes dans la réserve voisine",
+  "alt_en": "Giraffes in the nearby reserve",
+  "recent": false,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.75,
+  "hero": false
+ },
+ {
+  "name": "golf",
+  "space": "environment",
+  "alt_fr": "Parcours de golf à proximité",
+  "alt_en": "Nearby golf course",
+  "recent": false,
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "ratio": 0.5354,
+  "hero": false
+ },
+ {
+  "name": "lagoon-view",
+  "space": "environment",
+  "alt_fr": "Vue sur la lagune et les pins",
+  "alt_en": "View of the lagoon and the pine trees",
+  "recent": false,
+  "widths": [
+   640,
+   1024
+  ],
+  "ratio": 0.75,
+  "hero": false
+ }
+]

@@ -16,3 +16,7 @@
 .hbm-facts dt { font-weight: 700; }
 .hbm-facts dd { margin: 0; }
 .hbm-footer { text-align: center; padding: 24px 16px; border-top: 1px solid #e6e1d8; color: #666; }
+
+.hbm-hero-img { width: 100%; height: auto; border-radius: 8px; }
+.hbm-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 8px; }
+.hbm-gallery-img { width: 100%; height: auto; border-radius: 6px; }

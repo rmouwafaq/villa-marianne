@@ -37,6 +37,26 @@
                         <li t-foreach="sec['ul']" t-as="item" t-out="item"/>
                     </ul>
                 </section>
+                <img t-if="hero" class="hbm-hero-img" t-att-src="hero['src']" t-att-srcset="hero['srcset']"
+                     sizes="(max-width: 960px) 100vw, 960px" t-att-width="hero['width']"
+                     t-att-height="hero['height']" t-att-alt="hero['alt']" fetchpriority="high"/>
+                <section t-if="gallery" class="hbm-section">
+                    <h2 t-out="c['gallery_title']"/>
+                    <t t-set="first_image" t-value="True"/>
+                    <t t-foreach="c['spaces']" t-as="space_key">
+                        <t t-set="space_items" t-value="[i for i in gallery if i['space'] == space_key]"/>
+                        <h3 t-if="space_items" t-out="c['spaces'][space_key]"/>
+                        <div t-if="space_items" class="hbm-gallery">
+                            <t t-foreach="space_items" t-as="img">
+                                <img class="hbm-gallery-img" t-att-src="img['src']" t-att-srcset="img['srcset']"
+                                     sizes="(max-width: 640px) 100vw, 300px" t-att-width="img['width']"
+                                     t-att-height="img['height']" t-att-alt="img['alt']"
+                                     t-att-loading="None if first_image else 'lazy'"/>
+                                <t t-set="first_image" t-value="False"/>
+                            </t>
+                        </div>
+                    </t>
+                </section>
                 <section t-if="page.get('faq')" class="hbm-section">
                     <h2 t-out="c['faq_title']"/>
                     <t t-foreach="page['faq']" t-as="item">

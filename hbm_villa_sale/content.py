@@ -25,6 +25,8 @@ FR = {
     "on_request": "sur demande",
     "facts_title": "Chiffres clés",
     "faq_title": "Questions fréquentes",
+    "gallery_title": "Galerie photos",
+    "spaces": {"exterior": "Extérieurs", "pool": "Piscine", "aerial": "Vues aériennes", "terraces": "Terrasses et jardin", "interior": "Intérieurs", "night": "Ambiance du soir", "environment": "Autour de Saly"},
     "fact_labels": {
         "price": "Prix", "area": "Surface", "year": "Construction",
         "beach": "Distance de la plage", "suites": "Suites et chambres",
@@ -171,6 +173,8 @@ EN = {
     "on_request": "on request",
     "facts_title": "Key figures",
     "faq_title": "Frequently asked questions",
+    "gallery_title": "Photo gallery",
+    "spaces": {"exterior": "Outdoors", "pool": "Pool", "aerial": "Aerial views", "terraces": "Terraces and garden", "interior": "Indoors", "night": "Evening mood", "environment": "Around Saly"},
     "fact_labels": {
         "price": "Price", "area": "Area", "year": "Built",
         "beach": "Distance to the beach", "suites": "Suites and rooms",

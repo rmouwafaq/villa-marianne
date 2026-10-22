@@ -4,6 +4,7 @@ from markupsafe import Markup
 
 from odoo import http
 from odoo.http import request
+from odoo.tools import file_path
 
 from odoo.addons.website.controllers.main import Website
 
@@ -16,6 +17,40 @@ def _hbm_sitemap(env, rule, qs):
         for loc in (path, "/en" + ("" if path == "/" else path)):
             if not qs or qs.lower() in loc:
                 yield {"loc": loc}
+
+
+IMG_URL = "/hbm_villa_sale/static/img/"
+SPACE_ORDER = ["exterior", "pool", "aerial", "terraces", "interior", "night", "environment"]
+_MANIFEST = []
+
+
+def _manifest():
+    if not _MANIFEST:
+        with open(file_path("hbm_villa_sale/data/media_manifest.json"), encoding="utf-8") as handle:
+            _MANIFEST.extend(json.load(handle))
+    return _MANIFEST
+
+
+def _image_attrs(item, lang):
+    """Attributs <img> responsive d'une entrée du manifeste."""
+    widths = item["widths"]
+    shown = max((w for w in widths if w <= 1280), default=widths[0])
+    return {
+        "name": item["name"],
+        "space": item["space"],
+        "src": f"{IMG_URL}{item['name']}-{shown}.webp",
+        "srcset": ", ".join(f"{IMG_URL}{item['name']}-{w}.webp {w}w" for w in widths),
+        "width": shown,
+        "height": round(shown * item["ratio"]),
+        "alt": item["alt_" + lang],
+        "hero": item["hero"],
+    }
+
+
+def _gallery(lang):
+    items = sorted((_image_attrs(m, lang) for m in _manifest()),
+                   key=lambda i: SPACE_ORDER.index(i["space"]))
+    return items
 
 
 class HbmVillaSale(Website):
@@ -39,7 +74,10 @@ class HbmVillaSale(Website):
         graph = prop.seo_graph(lang, key, url=page_url, image=og_image, base_url=host)
         # "<" échappé : le JSON est inséré tel quel dans un bloc <script>
         ld_json = Markup(json.dumps(graph, ensure_ascii=False).replace("<", "\\u003c"))
+        gallery = _gallery(lang) if key in ("home", "villa") else []
         return request.render("hbm_villa_sale.page", {
+            "gallery": gallery if key == "villa" else [],
+            "hero": next((i for i in gallery if i["hero"]), None) if key == "home" else None,
             "ld_json": ld_json,
             "hbm_seo": {"title": c["pages"][key]["title"], "og_image": og_image,
                         "locale": "fr_FR" if lang == "fr" else "en_US", "url": page_url},
