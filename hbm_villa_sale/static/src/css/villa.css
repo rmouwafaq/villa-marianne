@@ -1,6 +1,6 @@
-.hbm-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 24px; border-bottom: 1px solid #e6e1d8; }
+.hbm-header { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px; padding: 16px 24px; border-bottom: 1px solid #e6e1d8; text-align: center; }
 .hbm-brand { font-size: 1.4rem; font-weight: 700; color: #1f4e5f; text-decoration: none; }
-.hbm-nav { display: flex; flex-wrap: wrap; gap: 16px; }
+.hbm-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; }
 .hbm-nav a { color: #333; text-decoration: none; }
 .hbm-nav a.active { color: #1f4e5f; font-weight: 700; }
 .hbm-main { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
