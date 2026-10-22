@@ -13,10 +13,15 @@ class HbmVillaSale(Website):
         c = CONTENT[lang]
         prop = request.env["hbm.property"].sudo().get_main()
         path = request.httprequest.path
-        if path.startswith("/en/") or path == "/en":
-            alt_path = path[3:] or "/"
+        # URL absolue : Odoo re-préfixe les liens relatifs avec la langue courante.
+        host = request.httprequest.host_url.rstrip("/")
+        if lang == "en":
+            # selon la version, Odoo peut ou non retirer le préfixe du chemin
+            if path.startswith("/en"):
+                path = path[3:] or "/"
+            alt_path = host + path
         else:
-            alt_path = "/en" + (path if path != "/" else "/")
+            alt_path = host + "/en" + (path if path != "/" else "/")
         return request.render("hbm_villa_sale.page", {
             "key": key,
             "c": c,
