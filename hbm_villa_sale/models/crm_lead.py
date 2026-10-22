@@ -2,6 +2,7 @@ import uuid
 from datetime import timedelta
 
 from odoo import fields, models
+from odoo.tools import html_escape
 
 # (étape actuelle, jours depuis la demande, étape suivante, type de message)
 FOLLOWUPS = ((0, 3, 1, "followup1"), (1, 10, 2, "followup2"))
@@ -38,13 +39,18 @@ class CrmLead(models.Model):
         seller = self.env["ir.config_parameter"].sudo().get_param("hbm_villa_sale.seller_email")
         if not seller:
             return
+        request_labels = dict(self._fields["hbm_request"].selection)
+        profile_labels = dict(self._fields["hbm_profile"].selection)
         for lead in self:
+            # le nom et l'e-mail viennent du visiteur : jamais de HTML brut dans le courrier du vendeur
+            name = " ".join((lead.contact_name or "").split())
             self.env["mail.mail"].sudo().create({
-                "subject": f"Villa Marianne : nouvelle demande de {lead.contact_name}",
+                "subject": f"Villa Marianne : nouvelle demande de {name}",
                 "email_to": seller,
                 "body_html": (
-                    f"<p>{lead.contact_name} ({lead.email_from}) a envoyé une demande "
-                    f"({lead.hbm_request}, projet : {lead.hbm_profile}).</p>"),
+                    f"<p>{html_escape(name)} ({html_escape(lead.email_from or '')}) a envoyé une demande "
+                    f"({html_escape(request_labels.get(lead.hbm_request, ''))}, "
+                    f"projet : {html_escape(profile_labels.get(lead.hbm_profile, ''))}).</p>"),
                 "auto_delete": True,
             })
 

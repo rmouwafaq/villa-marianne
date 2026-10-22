@@ -29,6 +29,15 @@ class TestLanding(HttpCase):
             self.assertNotIn('class="hbm-nav"', html, path)
             self.assertIn(CONTENT[lang]["pages"]["landing"]["lead"], main, path)
 
+    def test_landing_never_redirects_on_browser_language(self):
+        """Une page d'atterrissage Ads reste à son adresse, quelle que soit la langue du navigateur."""
+        for lang, path in LANDINGS.items():
+            for accept in ("en-US,en;q=0.9", "fr-FR,fr;q=0.9", "ar-MA"):
+                res = self.url_open(path, headers={"Accept-Language": accept}, allow_redirects=False)
+                self.assertEqual(res.status_code, 200, (path, accept))
+                self.assertIn(CONTENT[lang]["pages"]["landing"]["lead"], res.text, (path, accept))
+                self.assertIn(f'rel="canonical" href="http://127.0.0.1:8069{path}"', res.text)
+
     def test_landing_is_noindex(self):
         for path in LANDINGS.values():
             self.assertRegex(self.url_open(path).text,

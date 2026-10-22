@@ -23,7 +23,7 @@ class TestCatalogParity(TransactionCase):
         self.assertEqual(sorted(fr), sorted(en))
         for path, value in en.items():
             if not path.endswith("/slug") and path not in ("/lang", "/site", "/nav/saly", "/nav/contact", "/beach_fmt", "/whatsapp",
-                        "/form/countries/FR"):  # noms propres identiques
+                        "/form/countries/FR", "/pages/legal/sections[3]/h"):  # noms propres identiques
                 self.assertTrue(str(value).strip(), path)
                 self.assertNotEqual(value, fr[path], path)
 

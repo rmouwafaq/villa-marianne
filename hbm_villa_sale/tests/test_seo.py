@@ -75,5 +75,18 @@ class TestSitemap(HttpCase):
         self.assertRegex(body, r"<loc>[^<]*/en/la-villa</loc>")
         self.assertNotIn("/en/en/", body)
 
+    def test_sitemap_urls_all_resolve(self):
+        """Aucune URL du sitemap ni aucun hreflang ne doit mener à une erreur."""
+        body = self.url_open("/sitemap.xml").text
+        locs = re.findall(r"<loc>([^<]+)</loc>", body)
+        self.assertGreaterEqual(len(locs), 24)
+        for loc in locs:
+            path = "/" + loc.split("/", 3)[3]
+            res = self.url_open(path)
+            self.assertEqual(res.status_code, 200, path)
+            for href in re.findall(r'<link rel="alternate" hreflang="[^"]+" href="([^"]+)"', res.text):
+                alt = "/" + href.split("/", 3)[3]
+                self.assertEqual(self.url_open(alt).status_code, 200, alt)
+
     def test_robots_points_to_sitemap(self):
         self.assertIn("Sitemap:", self.url_open("/robots.txt").text)

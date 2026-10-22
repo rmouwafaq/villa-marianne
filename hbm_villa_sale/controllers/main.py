@@ -74,7 +74,7 @@ class HbmVillaSale(Website):
         fr_url = host + path
         en_url = host + "/en" + ("" if path == "/" else path)
         alt_path = fr_url if lang == "en" else en_url
-        page_url = en_url if lang == "en" else fr_url
+        page_url = host + path if landing else (en_url if lang == "en" else fr_url)
         og_image = host + "/hbm_villa_sale/static/img/og-default.jpg"
         graph = prop.seo_graph(lang, "blog" if article else key, url=page_url,
                                image=og_image, base_url=host)
@@ -99,6 +99,7 @@ class HbmVillaSale(Website):
             "gallery": gallery if key == "villa" else [],
             "hero": next((i for i in gallery if i["hero"]), None) if key in ("home", "landing") else None,
             "ld_json": ld_json,
+            "equivalents": prop.price_equivalents() if key in ("home", "landing") else [],
             "status": status if status in c["form"]["status"] else None,
             "whatsapp_url": f"https://wa.me/{digits}" if digits else None,
             "gtm_id": params.get_param("hbm_villa_sale.gtm_id") or None,
@@ -147,10 +148,11 @@ class HbmVillaSale(Website):
         return self._hbm_render("article", article=article)
 
     # Pages d'atterrissage Google Ads : une langue par adresse, hors sitemap, non indexées.
-    @http.route("/investir-saly", type="http", auth="public", website=True, sitemap=False)
+    # multilang=False : Odoo ne redirige pas vers /en/ selon la langue du navigateur.
+    @http.route("/investir-saly", type="http", auth="public", website=True, multilang=False, sitemap=False)
     def landing_fr(self, **kw):
         return self._hbm_render("landing", lang="fr")
 
-    @http.route("/saly-villa-for-sale", type="http", auth="public", website=True, sitemap=False)
+    @http.route("/saly-villa-for-sale", type="http", auth="public", website=True, multilang=False, sitemap=False)
     def landing_en(self, **kw):
         return self._hbm_render("landing", lang="en")

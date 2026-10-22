@@ -93,6 +93,28 @@ test("sans identifiant GTM le bandeau reste caché et rien ne se charge", () => 
     assert.strictEqual(env.scripts.length, 0);
 });
 
+test("retirer son consentement: choix effacé, page rechargée, bandeau de nouveau proposé", () => {
+    const env = fakeEnv(fakeStorage({ hbm_consent: "granted" }), "GTM-TEST");
+    let reloaded = false;
+    env.win.location = { reload: () => { reloaded = true; } };
+    HbmConsent.reset(env);
+    assert.strictEqual(HbmConsent.readChoice(env.storage), null);
+    assert.strictEqual(reloaded, true);
+    assert.strictEqual(HbmConsent.decide("GTM-TEST", HbmConsent.readChoice(env.storage)), "ask");
+});
+
+test("le lien « gérer les cookies » déclenche le retrait du consentement", () => {
+    const env = fakeEnv(fakeStorage({ hbm_consent: "granted" }), "GTM-TEST");
+    let reloaded = false;
+    env.win.location = { reload: () => { reloaded = true; } };
+    const link = { handlers: {}, addEventListener(t, fn) { this.handlers[t] = fn; } };
+    env.doc.querySelectorAll = (sel) => (sel === "[data-hbm-consent-reset]" ? [link] : []);
+    HbmConsent.init(env);
+    link.handlers.click({ preventDefault() {} });
+    assert.strictEqual(reloaded, true);
+    assert.strictEqual(env.storage.data.hbm_consent, "");
+});
+
 test("tracking: aucun événement sans consentement", () => {
     const win = { dataLayer: [] };
     HbmTracking.track(win, fakeStorage(), "generate_lead");

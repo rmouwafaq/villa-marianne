@@ -43,7 +43,7 @@ class HbmLead(http.Controller):
             return self._answer(post, True)
         if _rate_limited(request.httprequest.remote_addr, time.time()):
             return self._answer(post, False, "rate")
-        name = (post.get("name") or "").strip()
+        name = " ".join((post.get("name") or "").split())[:100]  # une ligne, longueur plafonnée
         email = email_normalize((post.get("email") or "").strip())
         if not name or not email:
             return self._answer(post, False, "error")

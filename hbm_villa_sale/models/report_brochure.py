@@ -34,6 +34,7 @@ class ReportBrochure(models.AbstractModel):
             "c": c,
             "title": c["pages"]["home"]["title"].split(" | ")[0],
             "facts": docs[:1].public_facts(c),
+            "equivalents": docs[:1].price_equivalents(),
             "photos": [{"src": _data_uri(name), "alt": by_name[name]["alt_" + lang]}
                        for name in BROCHURE_PHOTOS],
             "seller_email": params.get_param("hbm_villa_sale.seller_email"),

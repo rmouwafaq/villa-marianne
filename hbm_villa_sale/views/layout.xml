@@ -49,6 +49,9 @@
                             <span t-out="c['price_label']"/> <strong t-out="prop.price_display()"/>
                         </p>
                     </t>
+                    <p t-if="equivalents" class="hbm-equivalents">
+                        <t t-out="' · '.join(equivalents)"/> <small t-out="c['indicative']"/>
+                    </p>
                     <p t-if="key != 'contact' and not landing" class="hbm-actions">
                         <a class="hbm-btn" t-att-href="paths['contact']" t-out="c['cta_brochure']"/>
                         <a class="hbm-btn hbm-btn-alt" t-att-href="paths['contact']" t-out="c['cta_visit']"/>
@@ -114,6 +117,7 @@
             <footer class="hbm-footer">
                 <p t-out="c['footer']"/>
                 <a t-att-href="paths['legal']" t-out="c['legal_link']"/>
+                <a t-if="gtm_id" href="#" data-hbm-consent-reset="1" t-out="c['cookies_manage']"/>
                 <a t-if="whatsapp_url" class="hbm-whatsapp" t-att-href="whatsapp_url" t-out="c['whatsapp']"/>
             </footer>
             <div t-if="gtm_id" id="hbm-consent" class="hbm-consent" t-att-data-gtm-id="gtm_id" hidden="hidden"

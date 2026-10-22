@@ -79,6 +79,19 @@ class TestLead(HttpCase):
         mails = self.env["mail.mail"].search([("email_to", "=", "vendeur@example.com")])
         self.assertEqual(len(mails), 1)
 
+    def test_seller_notification_escapes_visitor_input(self):
+        self.env["ir.config_parameter"].sudo().set_param(
+            "hbm_villa_sale.seller_email", "vendeur@example.com")
+        self._post(name='<a href="https://evil.example">Cliquez</a>\nBcc: x@example.com',
+                   email="xss@example.com")
+        mail = self.env["mail.mail"].search([("email_to", "=", "vendeur@example.com")])
+        self.assertEqual(len(mail), 1)
+        self.assertNotIn('<a href="https://evil.example">', mail.body_html)
+        self.assertIn("&lt;a href=", mail.body_html)
+        self.assertNotIn("\n", mail.subject)
+        self.assertIn("Investissement", mail.body_html)  # libellé, pas la clé « investor »
+        self.assertNotIn("investor", mail.body_html)
+
     def test_form_works_without_js(self):
         page = self.url_open("/contact").text
         token = re.search(r'name="csrf_token" value="([^"]+)"', page).group(1)

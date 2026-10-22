@@ -16,6 +16,7 @@
                     <h1 style="color: #1f4e5f;" t-out="title"/>
                     <p style="font-size: 14pt;" t-out="c['pages']['home']['lead']"/>
                     <h2 style="color: #b5532a;" t-out="doc.price_display()"/>
+                    <p t-if="equivalents"><t t-out="' · '.join(equivalents)"/> <small t-out="c['indicative']"/></p>
                     <h2 t-out="c['facts_title']"/>
                     <table style="width: 100%; border-collapse: collapse;">
                         <tr t-foreach="facts" t-as="fact">

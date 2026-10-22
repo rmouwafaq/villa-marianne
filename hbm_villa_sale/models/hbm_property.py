@@ -34,6 +34,16 @@ class HbmProperty(models.Model):
         symbol = self.currency_id.symbol or self.currency_id.name
         return f"{self.format_number(self.price)} {symbol}"
 
+    def price_equivalents(self):
+        """Équivalents indicatifs (MAD, CHF) ; vide tant que les taux ne sont pas saisis."""
+        self.ensure_one()
+        out = []
+        for code in ("MAD", "CHF"):
+            value = self.price_in(code)
+            if value:
+                out.append(f"≈\u00a0{self.format_number(value)}\u00a0{code}")
+        return out
+
     def public_facts(self, c):
         """Liste (clé, libellé, valeur) pour la page, dans la langue du catalogue `c`."""
         self.ensure_one()

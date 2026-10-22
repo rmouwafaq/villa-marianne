@@ -31,6 +31,27 @@ class TestPages(HttpCase):
         self.assertIn("295" + NBSP + "000", home)
         self.assertNotIn("280" + NBSP + "000", home)
 
+    def test_price_equivalents_follow_settings(self):
+        params = self.env["ir.config_parameter"].sudo()
+        params.set_param("hbm_villa_sale.rate_mad", "0")
+        params.set_param("hbm_villa_sale.rate_chf", "0")
+        self.assertNotIn("MAD", self.url_open("/").text)
+        params.set_param("hbm_villa_sale.rate_mad", "10.8")
+        params.set_param("hbm_villa_sale.rate_chf", "0.93")
+        home = self.url_open("/").text
+        self.assertIn("3" + NBSP + "024" + NBSP + "000" + NBSP + "MAD", home)
+        self.assertIn("260" + NBSP + "400" + NBSP + "CHF", home)
+        self.assertIn("indicatifs", home)
+        self.assertIn("Indicative equivalents", self.url_open("/en/").text)
+
+    def test_legal_page_has_retention_and_cookies(self):
+        fr = self.url_open("/mentions-legales").text
+        self.assertIn("conservées", fr)
+        self.assertIn("cookies", fr)
+        en = self.url_open("/en/mentions-legales").text
+        self.assertIn("retained", en)
+        self.assertIn("cookies", en)
+
     def test_empty_legal_status_shows_on_request(self):
         self.env["hbm.property"].get_main().legal_status = False
         villa = self.url_open("/la-villa").text

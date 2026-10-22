@@ -36,6 +36,12 @@ class TestTracking(HttpCase):
         self.assertIn('data-gtm-id="GTM-TEST"', html)
         self.assertNotIn("googletagmanager.com", html)
 
+    def test_consent_can_be_withdrawn(self):
+        self.params.set_param("hbm_villa_sale.gtm_id", "GTM-TEST")
+        self.assertIn("data-hbm-consent-reset", self.url_open("/").text)
+        self.params.set_param("hbm_villa_sale.gtm_id", "")
+        self.assertNotIn("data-hbm-consent-reset", self.url_open("/").text)
+
     def test_no_banner_without_gtm_id(self):
         self.params.set_param("hbm_villa_sale.gtm_id", "")
         self.assertNotIn('id="hbm-consent"', self.url_open("/").text)

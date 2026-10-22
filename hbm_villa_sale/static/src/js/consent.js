@@ -44,7 +44,23 @@
         env.doc.head.appendChild(script);
     }
 
+    /* Retirer son consentement : on efface le choix et on recharge, le bandeau se réaffiche. */
+    function reset(env) {
+        saveChoice(env.storage, "");
+        if (env.win.location) {
+            env.win.location.reload();
+        }
+    }
+
     function init(env) {
+        if (env.doc.querySelectorAll) {
+            env.doc.querySelectorAll("[data-hbm-consent-reset]").forEach(function (link) {
+                link.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    reset(env);
+                });
+            });
+        }
         var banner = env.doc.getElementById("hbm-consent");
         var gtmId = banner && banner.dataset ? banner.dataset.gtmId : "";
         var action = decide(gtmId, readChoice(env.storage));
@@ -65,7 +81,7 @@
         }
     }
 
-    var api = { decide: decide, readChoice: readChoice, saveChoice: saveChoice, init: init, KEY: KEY };
+    var api = { decide: decide, readChoice: readChoice, saveChoice: saveChoice, reset: reset, init: init, KEY: KEY };
     root.HbmConsent = api;
     if (typeof module !== "undefined" && module.exports) {
         module.exports = api;
