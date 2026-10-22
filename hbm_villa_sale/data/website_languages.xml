@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="base.lang_fr" model="res.lang">
+        <field name="active" eval="True"/>
+    </record>
+    <function model="website" name="write">
+        <value eval="[ref('website.default_website')]"/>
+        <value eval="{'language_ids': [(6, 0, [ref('base.lang_fr'), ref('base.lang_en')])], 'default_lang_id': ref('base.lang_fr')}"/>
+    </function>
+</odoo>

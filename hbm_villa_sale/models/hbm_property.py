@@ -23,6 +23,32 @@ class HbmProperty(models.Model):
     suites_max = fields.Integer()
     description = fields.Html(translate=True, sanitize_attributes=False)
 
+    @staticmethod
+    def format_number(value):
+        return f"{value:,.0f}".replace(",", " ")
+
+    def price_display(self):
+        self.ensure_one()
+        symbol = self.currency_id.symbol or self.currency_id.name
+        return f"{self.format_number(self.price)} {symbol}"
+
+    def public_facts(self, c):
+        """Liste (clé, libellé, valeur) pour la page, dans la langue du catalogue `c`."""
+        self.ensure_one()
+        fmt = self.format_number
+        labels = c["fact_labels"]
+        area = f"{fmt(self.area_m2)} m² ({c['area_labels'][self.area_label]})"
+        suites = c["suites_fmt"].format(min=self.suites_min, max=self.suites_max)
+        values = [
+            ("price", self.price_display()),
+            ("area", area),
+            ("year", str(self.year_built)),
+            ("beach", c["beach_fmt"].format(n=self.distance_beach_m)),
+            ("suites", suites),
+            ("legal", self.legal_status or c["on_request"]),
+        ]
+        return [(key, labels[key], value) for key, value in values]
+
     @api.model
     def get_main(self):
         return self.search([], order="id", limit=1)

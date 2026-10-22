@@ -10,7 +10,12 @@
         "data/property_data.xml",
         "views/property_views.xml",
         "views/res_config_settings_views.xml",
+        "views/layout.xml",
+        "data/website_languages.xml",
     ],
+    "assets": {
+        "web.assets_frontend": ["hbm_villa_sale/static/src/css/villa.css"],
+    },
     "application": True,
     "installable": True,
 }

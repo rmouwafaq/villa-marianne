@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="page" name="Villa Marianne page">
+        <t t-call="website.layout">
+            <t t-set="additional_title" t-value="page['title']"/>
+            <t t-set="no_header" t-value="True"/>
+            <t t-set="no_footer" t-value="True"/>
+            <header class="hbm-header">
+                <a class="hbm-brand" t-att-href="paths['home']" t-out="c['site']"/>
+                <nav class="hbm-nav">
+                    <t t-foreach="c['nav']" t-as="nav_key">
+                        <a t-att-href="paths[nav_key]" t-att-class="'active' if nav_key == key else ''"
+                           t-out="c['nav'][nav_key]"/>
+                    </t>
+                    <a class="hbm-switch" t-att-href="alt_path" t-out="c['switch']"/>
+                </nav>
+            </header>
+            <main id="hbm-main" class="hbm-main">
+                <section class="hbm-hero">
+                    <h1 t-out="page['title'].split(' | ')[0]"/>
+                    <p class="hbm-lead" t-out="page['lead']"/>
+                    <t t-if="key == 'home'">
+                        <p class="hbm-price">
+                            <span t-out="c['price_label']"/> <strong t-out="prop.price_display()"/>
+                        </p>
+                    </t>
+                    <p t-if="key != 'contact'" class="hbm-actions">
+                        <a class="hbm-btn" t-att-href="paths['contact']" t-out="c['cta_brochure']"/>
+                        <a class="hbm-btn hbm-btn-alt" t-att-href="paths['contact']" t-out="c['cta_visit']"/>
+                    </p>
+                </section>
+                <section t-foreach="page['sections']" t-as="sec" class="hbm-section">
+                    <h2 t-out="sec['h']"/>
+                    <p t-foreach="sec['p']" t-as="para" t-out="para"/>
+                    <ul t-if="sec['ul']">
+                        <li t-foreach="sec['ul']" t-as="item" t-out="item"/>
+                    </ul>
+                </section>
+                <section t-if="key in ('home', 'villa')" class="hbm-section">
+                    <h2 t-out="c['facts_title']"/>
+                    <dl class="hbm-facts">
+                        <t t-foreach="facts" t-as="fact">
+                            <dt t-out="fact[1]"/>
+                            <dd t-out="fact[2]"/>
+                        </t>
+                    </dl>
+                </section>
+            </main>
+            <footer class="hbm-footer">
+                <p t-out="c['footer']"/>
+                <a t-att-href="paths['legal']" t-out="c['legal_link']"/>
+            </footer>
+        </t>
+    </template>
+</odoo>

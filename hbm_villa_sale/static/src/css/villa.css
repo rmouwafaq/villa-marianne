@@ -1,0 +1,18 @@
+.hbm-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 24px; border-bottom: 1px solid #e6e1d8; }
+.hbm-brand { font-size: 1.4rem; font-weight: 700; color: #1f4e5f; text-decoration: none; }
+.hbm-nav { display: flex; flex-wrap: wrap; gap: 16px; }
+.hbm-nav a { color: #333; text-decoration: none; }
+.hbm-nav a.active { color: #1f4e5f; font-weight: 700; }
+.hbm-main { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
+.hbm-hero { padding: 32px 0; }
+.hbm-hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); color: #1f4e5f; }
+.hbm-lead { font-size: 1.2rem; max-width: 720px; }
+.hbm-price strong { font-size: 2rem; color: #b5532a; }
+.hbm-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.hbm-btn { display: inline-block; padding: 12px 22px; background: #1f4e5f; color: #fff; border-radius: 6px; text-decoration: none; }
+.hbm-btn-alt { background: #b5532a; }
+.hbm-section { padding: 16px 0; }
+.hbm-facts { display: grid; grid-template-columns: max-content 1fr; gap: 8px 24px; }
+.hbm-facts dt { font-weight: 700; }
+.hbm-facts dd { margin: 0; }
+.hbm-footer { text-align: center; padding: 24px 16px; border-top: 1px solid #e6e1d8; color: #666; }
