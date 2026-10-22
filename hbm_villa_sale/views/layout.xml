@@ -8,9 +8,9 @@
             <t t-set="no_footer" t-value="True"/>
             <header class="hbm-header">
                 <a class="hbm-brand" t-att-href="paths['home']" t-out="c['site']"/>
-                <nav class="hbm-nav">
+                <nav t-if="not landing" class="hbm-nav">
                     <t t-foreach="c['nav']" t-as="nav_key">
-                        <a t-att-href="paths[nav_key]" t-att-class="'active' if nav_key == key else ''"
+                        <a t-att-href="paths[nav_key]" t-att-class="'active' if nav_key == key or (key == 'article' and nav_key == 'blog') else ''"
                            t-out="c['nav'][nav_key]"/>
                     </t>
                     <a class="hbm-switch" t-att-href="alt_path" t-out="c['switch']"/>
@@ -20,18 +20,18 @@
                 <section class="hbm-hero">
                     <h1 t-out="page['title'].split(' | ')[0]"/>
                     <p class="hbm-lead" t-out="page['lead']"/>
-                    <t t-if="key == 'home'">
+                    <t t-if="key in ('home', 'landing')">
                         <p class="hbm-price">
                             <span t-out="c['price_label']"/> <strong t-out="prop.price_display()"/>
                         </p>
                     </t>
-                    <p t-if="key != 'contact'" class="hbm-actions">
+                    <p t-if="key != 'contact' and not landing" class="hbm-actions">
                         <a class="hbm-btn" t-att-href="paths['contact']" t-out="c['cta_brochure']"/>
                         <a class="hbm-btn hbm-btn-alt" t-att-href="paths['contact']" t-out="c['cta_visit']"/>
                     </p>
                 </section>
                 <section t-foreach="page['sections']" t-as="sec" class="hbm-section">
-                    <h2 t-out="sec['h']"/>
+                    <h2 t-if="sec['h']" t-out="sec['h']"/>
                     <p t-foreach="sec['p']" t-as="para" t-out="para"/>
                     <ul t-if="sec['ul']">
                         <li t-foreach="sec['ul']" t-as="item" t-out="item"/>
@@ -57,7 +57,17 @@
                         </div>
                     </t>
                 </section>
-                <section t-if="key == 'contact'" class="hbm-section">
+                <section t-if="key == 'blog'" class="hbm-section">
+                    <article t-foreach="c['articles']" t-as="art" class="hbm-article">
+                        <h2><a t-att-href="'/conseils/' + art['slug']" t-out="art['title']"/></h2>
+                        <p t-out="art['lead']"/>
+                        <a t-att-href="'/conseils/' + art['slug']" t-out="c['read_more']"/>
+                    </article>
+                </section>
+                <section t-if="article" class="hbm-section">
+                    <a class="hbm-link" t-att-href="paths['villa']" t-out="c['article_cta']"/>
+                </section>
+                <section t-if="key in ('contact', 'landing')" class="hbm-section">
                     <t t-call="hbm_villa_sale.contact_form"/>
                 </section>
                 <section t-if="page.get('faq')" class="hbm-section">

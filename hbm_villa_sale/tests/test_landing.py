@@ -1,5 +1,7 @@
 import re
 
+from markupsafe import escape
+
 from odoo.tests.common import HttpCase, tagged
 
 from ..content import CONTENT
@@ -69,7 +71,7 @@ class TestArticles(HttpCase):
         for lang, prefix in (("fr", ""), ("en", "/en")):
             for article in CONTENT[lang]["articles"]:
                 html = self.url_open(f'{prefix}/conseils/{article["slug"]}').text
-                self.assertIn(f"<h1>{article['title']}</h1>", html.replace("<h1 >", "<h1>"), article["slug"])
+                self.assertIn(f"<h1>{escape(article['title'])}</h1>", html, article["slug"])
                 meta = re.search(r'<meta name="description" content="([^"]*)"', html).group(1)
                 self.assertTrue(70 <= len(meta) <= 160, (article["slug"], len(meta)))
                 self.assertIn('href="/la-villa"', _main(html).replace('href="/en/la-villa"', 'href="/la-villa"'))

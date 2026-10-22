@@ -8,6 +8,7 @@ from odoo.tools.mail import email_normalize
 
 PROFILES = ("investor", "second_home", "diaspora")
 REQUESTS = ("brochure", "visit_onsite", "visit_video")
+NEXT_PAGES = ("/contact", "/investir-saly", "/saly-villa-for-sale")  # retours autorisés
 RATE_MAX, RATE_WINDOW = 5, 60  # demandes par adresse IP et par minute
 RATE_HITS = {}  # ip -> horodatages (par processus : suffisant contre un envoi en rafale)
 
@@ -33,7 +34,8 @@ class HbmLead(http.Controller):
     def _answer(self, post, ok, error=None):
         if post.get("fmt") == "json":
             return request.make_json_response({"ok": True} if ok else {"ok": False, "error": error})
-        return request.redirect("/contact?status=" + ("ok" if ok else error), code=303)
+        target = post.get("next") if post.get("next") in NEXT_PAGES else "/contact"
+        return request.redirect(f"{target}?status=" + ("ok" if ok else error), code=303)
 
     @http.route("/hbm/lead", type="http", auth="public", website=True, methods=["POST"])
     def submit(self, **post):

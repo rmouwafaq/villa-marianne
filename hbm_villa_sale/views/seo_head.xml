@@ -10,6 +10,7 @@
                 <meta property="og:locale" t-att-content="hbm_seo['locale']"/>
                 <meta property="og:url" t-att-content="hbm_seo['url']"/>
                 <meta name="twitter:card" content="summary_large_image"/>
+                <meta t-if="hbm_seo['noindex']" name="robots" content="noindex, nofollow"/>
                 <script type="application/ld+json" t-out="ld_json"/>
             </t>
         </xpath>

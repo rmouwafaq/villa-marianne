@@ -6,6 +6,7 @@
         <form class="hbm-form" action="/hbm/lead" method="post">
             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
             <input type="hidden" name="lang" t-att-value="c['lang']"/>
+            <input type="hidden" name="next" t-att-value="next_path"/>
             <p class="hbm-hp" aria-hidden="true">
                 <label>Site web <input type="text" name="company_site" tabindex="-1" autocomplete="off"/></label>
             </p>

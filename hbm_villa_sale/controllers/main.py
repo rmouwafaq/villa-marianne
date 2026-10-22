@@ -5,23 +5,26 @@ from markupsafe import Markup
 from odoo import http
 from odoo.http import request
 
-
 from odoo.addons.website.controllers.main import Website
 
 from ..content import CONTENT, PAGE_PATHS
 from ..media import manifest
 
+IMG_URL = "/hbm_villa_sale/static/img/"
+SPACE_ORDER = ["exterior", "pool", "aerial", "terraces", "interior", "night", "environment"]
+LANDING_LANG = {"/investir-saly": "fr", "/saly-villa-for-sale": "en"}
+
 
 def _hbm_sitemap(env, rule, qs):
-    """Toutes les pages du module, dans les deux langues (Odoo ne liste que la langue par défaut)."""
-    for path in PAGE_PATHS.values():
+    """Pages et articles du module, dans les deux langues (Odoo ne liste que la langue par défaut)."""
+    paths = list(PAGE_PATHS.values())
+    paths += [f"/conseils/{article['slug']}" for article in CONTENT["fr"]["articles"]]
+    for path in paths:
         for loc in (path, "/en" + ("" if path == "/" else path)):
             if not qs or qs.lower() in loc:
                 yield {"loc": loc}
 
 
-IMG_URL = "/hbm_villa_sale/static/img/"
-SPACE_ORDER = ["exterior", "pool", "aerial", "terraces", "interior", "night", "environment"]
 def _image_attrs(item, lang):
     """Attributs <img> responsive d'une entrée du manifeste."""
     widths = item["widths"]
@@ -39,21 +42,29 @@ def _image_attrs(item, lang):
 
 
 def _gallery(lang):
-    items = sorted((_image_attrs(m, lang) for m in manifest()),
-                   key=lambda i: SPACE_ORDER.index(i["space"]))
-    return items
+    return sorted((_image_attrs(m, lang) for m in manifest()),
+                  key=lambda i: SPACE_ORDER.index(i["space"]))
 
 
 class HbmVillaSale(Website):
 
-    def _hbm_render(self, key):
+    def _hbm_render(self, key, lang=None, article=None):
+        """Rend une page du catalogue. `key` : home, villa, ... blog, article, landing."""
         # UTM conservés dans la session serveur (pas de cookie supplémentaire avant consentement)
         for utm in ("utm_source", "utm_medium", "utm_campaign"):
             if request.params.get(utm):
                 request.session["hbm_" + utm] = request.params[utm][:100]
-        lang = "en" if (request.env.lang or "").startswith("en") else "fr"
+        landing = key == "landing"
+        lang = lang or ("en" if (request.env.lang or "").startswith("en") else "fr")
         c = CONTENT[lang]
+        if article:
+            page = {"title": f"{article['title']} | {c['site']}", "meta": article["meta"],
+                    "lead": article["lead"],
+                    "sections": [{"h": "", "p": article["body"], "ul": []}]}
+        else:
+            page = c["pages"][key]
         prop = request.env["hbm.property"].sudo().get_main()
+        params = request.env["ir.config_parameter"].sudo()
         path = request.httprequest.path
         # URL absolue : Odoo re-préfixe les liens relatifs avec la langue courante.
         host = request.httprequest.host_url.rstrip("/")
@@ -66,29 +77,32 @@ class HbmVillaSale(Website):
             alt_path = host + "/en" + (path if path != "/" else "/")
         page_url = request.httprequest.base_url
         og_image = host + "/hbm_villa_sale/static/img/og-default.jpg"
-        graph = prop.seo_graph(lang, key, url=page_url, image=og_image, base_url=host)
+        graph = prop.seo_graph(lang, "blog" if article else key, url=page_url,
+                               image=og_image, base_url=host)
         # "<" échappé : le JSON est inséré tel quel dans un bloc <script>
         ld_json = Markup(json.dumps(graph, ensure_ascii=False).replace("<", "\\u003c"))
         status = request.params.get("status")
-        digits = "".join(ch for ch in (request.env["ir.config_parameter"].sudo().get_param("hbm_villa_sale.whatsapp") or "") if ch.isdigit())
-        whatsapp_url = f"https://wa.me/{digits}" if digits else None
-        gallery = _gallery(lang) if key in ("home", "villa") else []
+        digits = "".join(ch for ch in (params.get_param("hbm_villa_sale.whatsapp") or "") if ch.isdigit())
+        gallery = _gallery(lang) if key in ("home", "villa", "landing") else []
         return request.render("hbm_villa_sale.page", {
-            "gallery": gallery if key == "villa" else [],
-            "hero": next((i for i in gallery if i["hero"]), None) if key == "home" else None,
-            "ld_json": ld_json,
-            "status": status if status in c["form"]["status"] else None,
-            "whatsapp_url": whatsapp_url,
-            "gtm_id": request.env["ir.config_parameter"].sudo().get_param("hbm_villa_sale.gtm_id") or None,
-            "hbm_seo": {"title": c["pages"][key]["title"], "og_image": og_image,
-                        "locale": "fr_FR" if lang == "fr" else "en_US", "url": page_url},
             "key": key,
             "c": c,
-            "page": c["pages"][key],
+            "page": page,
+            "article": article,
+            "landing": landing,
             "paths": PAGE_PATHS,
             "prop": prop,
             "facts": prop.public_facts(c),
             "alt_path": alt_path,
+            "next_path": path if landing else "/contact",
+            "gallery": gallery if key == "villa" else [],
+            "hero": next((i for i in gallery if i["hero"]), None) if key in ("home", "landing") else None,
+            "ld_json": ld_json,
+            "status": status if status in c["form"]["status"] else None,
+            "whatsapp_url": f"https://wa.me/{digits}" if digits else None,
+            "gtm_id": params.get_param("hbm_villa_sale.gtm_id") or None,
+            "hbm_seo": {"title": page["title"], "og_image": og_image, "noindex": landing,
+                        "locale": "fr_FR" if lang == "fr" else "en_US", "url": page_url},
         })
 
     @http.route(sitemap=_hbm_sitemap)
@@ -118,3 +132,24 @@ class HbmVillaSale(Website):
     @http.route("/mentions-legales", type="http", auth="public", website=True, sitemap=False)
     def legal(self, **kw):
         return self._hbm_render("legal")
+
+    @http.route("/conseils", type="http", auth="public", website=True, sitemap=False)
+    def blog(self, **kw):
+        return self._hbm_render("blog")
+
+    @http.route("/conseils/<string:slug>", type="http", auth="public", website=True, sitemap=False)
+    def article(self, slug, **kw):
+        lang = "en" if (request.env.lang or "").startswith("en") else "fr"
+        article = next((a for a in CONTENT[lang]["articles"] if a["slug"] == slug), None)
+        if not article:
+            raise request.not_found()
+        return self._hbm_render("article", article=article)
+
+    # Pages d'atterrissage Google Ads : une langue par adresse, hors sitemap, non indexées.
+    @http.route("/investir-saly", type="http", auth="public", website=True, sitemap=False)
+    def landing_fr(self, **kw):
+        return self._hbm_render("landing", lang="fr")
+
+    @http.route("/saly-villa-for-sale", type="http", auth="public", website=True, sitemap=False)
+    def landing_en(self, **kw):
+        return self._hbm_render("landing", lang="en")
