@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="page" name="Villa Marianne page">
-        <t t-call="website.layout">
-            <t t-set="additional_title" t-value="page['title']"/>
-            <t t-set="website_meta_description" t-value="page['meta']"/>
-            <t t-set="no_header" t-value="True"/>
-            <t t-set="no_footer" t-value="True"/>
+        <!-- Squelette léger (web.layout) : aucun JavaScript ni CSS du site Odoo, pour la vitesse -->
+        <t t-call="web.layout">
+            <t t-set="html_data" t-value="{'lang': 'fr-FR' if c['lang'] == 'fr' else 'en-US'}"/>
+            <t t-set="title" t-value="page['title']"/>
+            <t t-set="x_icon" t-value="'/hbm_villa_sale/static/img/favicon.png'"/>
+            <t t-set="body_classname" t-value="'hbm-body'"/>
+            <t t-set="head">
+                <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                <meta name="description" t-att-content="page['meta']"/>
+                <link rel="canonical" t-att-href="canonical"/>
+                <t t-if="alternates">
+                    <link rel="alternate" hreflang="fr" t-att-href="alternates['fr']"/>
+                    <link rel="alternate" hreflang="en" t-att-href="alternates['en']"/>
+                    <link rel="alternate" hreflang="x-default" t-att-href="alternates['fr']"/>
+                </t>
+                <meta property="og:type" content="website"/>
+                <meta property="og:title" t-att-content="hbm_seo['title']"/>
+                <meta property="og:description" t-att-content="page['meta']"/>
+                <meta property="og:image" t-att-content="hbm_seo['og_image']"/>
+                <meta property="og:locale" t-att-content="hbm_seo['locale']"/>
+                <meta property="og:url" t-att-content="hbm_seo['url']"/>
+                <meta name="twitter:card" content="summary_large_image"/>
+                <meta t-if="hbm_seo['noindex']" name="robots" content="noindex, nofollow"/>
+                <link rel="stylesheet" href="/hbm_villa_sale/static/src/css/villa.css"/>
+                <script type="application/ld+json" t-out="ld_json"/>
+                <script defer="defer" src="/hbm_villa_sale/static/src/js/consent.js"/>
+                <script defer="defer" src="/hbm_villa_sale/static/src/js/tracking.js"/>
+            </t>
+            <a class="hbm-skip" href="#hbm-main" t-out="c['skip']"/>
             <header class="hbm-header">
                 <a class="hbm-brand" t-att-href="paths['home']" t-out="c['site']"/>
                 <nav t-if="not landing" class="hbm-nav">
@@ -29,6 +53,9 @@
                         <a class="hbm-btn" t-att-href="paths['contact']" t-out="c['cta_brochure']"/>
                         <a class="hbm-btn hbm-btn-alt" t-att-href="paths['contact']" t-out="c['cta_visit']"/>
                     </p>
+                    <img t-if="hero" class="hbm-hero-img" t-att-src="hero['src']" t-att-srcset="hero['srcset']"
+                         sizes="(max-width: 960px) 100vw, 960px" t-att-width="hero['width']"
+                         t-att-height="hero['height']" t-att-alt="hero['alt']" fetchpriority="high"/>
                 </section>
                 <section t-foreach="page['sections']" t-as="sec" class="hbm-section">
                     <h2 t-if="sec['h']" t-out="sec['h']"/>
@@ -37,9 +64,6 @@
                         <li t-foreach="sec['ul']" t-as="item" t-out="item"/>
                     </ul>
                 </section>
-                <img t-if="hero" class="hbm-hero-img" t-att-src="hero['src']" t-att-srcset="hero['srcset']"
-                     sizes="(max-width: 960px) 100vw, 960px" t-att-width="hero['width']"
-                     t-att-height="hero['height']" t-att-alt="hero['alt']" fetchpriority="high"/>
                 <section t-if="gallery" class="hbm-section">
                     <h2 t-out="c['gallery_title']"/>
                     <t t-set="first_image" t-value="True"/>

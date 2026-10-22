@@ -26,6 +26,7 @@ FR = {
     "on_request": "sur demande",
     "facts_title": "Chiffres clés",
     "faq_title": "Questions fréquentes",
+    "skip": "Aller au contenu",
     "gallery_title": "Galerie photos",
     "spaces": {"exterior": "Extérieurs", "pool": "Piscine", "aerial": "Vues aériennes", "terraces": "Terrasses et jardin", "interior": "Intérieurs", "night": "Ambiance du soir", "environment": "Autour de Saly"},
     "fact_labels": {
@@ -246,6 +247,7 @@ EN = {
     "on_request": "on request",
     "facts_title": "Key figures",
     "faq_title": "Frequently asked questions",
+    "skip": "Skip to content",
     "gallery_title": "Photo gallery",
     "spaces": {"exterior": "Outdoors", "pool": "Pool", "aerial": "Aerial views", "terraces": "Terraces and garden", "interior": "Indoors", "night": "Evening mood", "environment": "Around Saly"},
     "fact_labels": {

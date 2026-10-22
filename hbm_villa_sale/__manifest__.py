@@ -14,17 +14,9 @@
         "views/property_views.xml",
         "views/res_config_settings_views.xml",
         "views/layout.xml",
-        "views/seo_head.xml",
         "views/lead_form.xml",
         "data/website_languages.xml",
     ],
-    "assets": {
-        "web.assets_frontend": [
-            "hbm_villa_sale/static/src/css/villa.css",
-            "hbm_villa_sale/static/src/js/consent.js",
-            "hbm_villa_sale/static/src/js/tracking.js",
-        ],
-    },
     "application": True,
     "installable": True,
 }

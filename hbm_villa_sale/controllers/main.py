@@ -66,16 +66,15 @@ class HbmVillaSale(Website):
         prop = request.env["hbm.property"].sudo().get_main()
         params = request.env["ir.config_parameter"].sudo()
         path = request.httprequest.path
-        # URL absolue : Odoo re-préfixe les liens relatifs avec la langue courante.
-        host = request.httprequest.host_url.rstrip("/")
-        if lang == "en":
-            # selon la version, Odoo peut ou non retirer le préfixe du chemin
-            if path.startswith("/en"):
-                path = path[3:] or "/"
-            alt_path = host + path
-        else:
-            alt_path = host + "/en" + (path if path != "/" else "/")
-        page_url = request.httprequest.base_url
+        # URL absolues : Odoo re-préfixe les liens relatifs avec la langue courante.
+        host = request.website.get_base_url().rstrip("/")
+        # selon la version, Odoo peut ou non retirer le préfixe de langue du chemin
+        if path == "/en" or path.startswith("/en/"):
+            path = path[3:] or "/"
+        fr_url = host + path
+        en_url = host + "/en" + ("" if path == "/" else path)
+        alt_path = fr_url if lang == "en" else en_url
+        page_url = en_url if lang == "en" else fr_url
         og_image = host + "/hbm_villa_sale/static/img/og-default.jpg"
         graph = prop.seo_graph(lang, "blog" if article else key, url=page_url,
                                image=og_image, base_url=host)
@@ -94,6 +93,8 @@ class HbmVillaSale(Website):
             "prop": prop,
             "facts": prop.public_facts(c),
             "alt_path": alt_path,
+            "canonical": page_url,
+            "alternates": None if landing else {"fr": fr_url, "en": en_url},
             "next_path": path if landing else "/contact",
             "gallery": gallery if key == "villa" else [],
             "hero": next((i for i in gallery if i["hero"]), None) if key in ("home", "landing") else None,
