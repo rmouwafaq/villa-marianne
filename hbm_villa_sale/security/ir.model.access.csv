@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hbm_property_public,hbm.property public,model_hbm_property,base.group_public,1,0,0,0
+access_hbm_property_user,hbm.property user,model_hbm_property,base.group_user,1,0,0,0
+access_hbm_property_designer,hbm.property designer,model_hbm_property,website.group_website_designer,1,1,1,0
+access_hbm_property_system,hbm.property system,model_hbm_property,base.group_system,1,1,1,1

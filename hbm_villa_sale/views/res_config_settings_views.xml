@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hbm_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.hbm</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app string="Villa Marianne" name="hbm_villa_sale">
+                    <block title="Vente">
+                        <setting string="Taux de change indicatifs">
+                            <field name="hbm_rate_mad"/>
+                            <field name="hbm_rate_chf"/>
+                        </setting>
+                        <setting string="Contact vendeur">
+                            <field name="hbm_seller_email"/>
+                            <field name="hbm_whatsapp"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

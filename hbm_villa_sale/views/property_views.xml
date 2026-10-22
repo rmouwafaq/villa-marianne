@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hbm_property_view_form" model="ir.ui.view">
+        <field name="name">hbm.property.form</field>
+        <field name="model">hbm.property</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="price"/>
+                            <field name="currency_id"/>
+                            <field name="legal_status"/>
+                        </group>
+                        <group>
+                            <field name="area_m2"/>
+                            <field name="area_label"/>
+                            <field name="year_built"/>
+                            <field name="distance_beach_m"/>
+                            <field name="suites_min"/>
+                            <field name="suites_max"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hbm_property_action" model="ir.actions.act_window">
+        <field name="name">Villa Marianne</field>
+        <field name="res_model">hbm.property</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="hbm_menu_root" name="Villa Marianne" sequence="40"
+              action="hbm_property_action"/>
+</odoo>
