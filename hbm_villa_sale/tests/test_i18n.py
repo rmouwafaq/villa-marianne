@@ -44,20 +44,23 @@ class TestEnglishPages(HttpCase):
         self.assertIn("Villa Marianne", en)
         self.assertIn("for sale", en)
 
-    def test_language_switcher_links(self):
+    def test_language_switcher_links_are_relative(self):
+        """Liens relatifs : le navigateur garde son propre hôte, même si Odoo croit être sur localhost:8069."""
         fr = self.url_open("/la-villa").text
-        self.assertRegex(fr, r'class="hbm-switch" href="//[^"/]+/en/la-villa"')
+        self.assertIn('class="hbm-switch" href="/en/la-villa"', fr)
         en = self.url_open("/en/la-villa").text
-        self.assertRegex(en, r'class="hbm-switch" href="//[^"/]+/fr/la-villa"')
+        self.assertRegex(en, r'class="hbm-switch" href="(/en)?/la-villa\?hbm_lang=fr"')
 
-    def test_switch_link_uses_request_host_not_base_url(self):
-        """web.base.url peut être faux (ex. localhost:8069) : le lien doit suivre l'adresse réellement utilisée."""
+    def test_switch_links_ignore_wrong_host_and_base_url(self):
+        """Proxy sans en-tête Host (Odoo voit localhost:8069) et web.base.url faux."""
         self.env["ir.config_parameter"].sudo().set_param("web.base.url", "http://wrong.example:1234")
         for path in ("/la-villa", "/en/la-villa"):
-            html = self.url_open(path).text
-            self.assertNotIn("wrong.example", re.search(r'class="hbm-switch" href="([^"]+)"', html).group(1))
-            self.assertRegex(html, r'class="hbm-switch" href="//127\.0\.0\.1:8069/')
-
+            html = self.url_open(path, headers={"Host": "localhost:8069"}).text
+            href = re.search(r'class="hbm-switch" href="([^"]+)"', html).group(1)
+            self.assertTrue(href.startswith("/"), href)
+            self.assertFalse(href.startswith("//"), href)
+            self.assertNotIn("localhost", href)
+            self.assertNotIn("wrong.example", href)
     def test_french_is_default_whatever_the_browser_language(self):
         self.opener.cookies.clear()
         for accept in ("en-US,en;q=0.9", "en-GB", "nl-BE", "ar-MA", "fr-FR"):
@@ -68,7 +71,7 @@ class TestEnglishPages(HttpCase):
     def test_back_to_french_sticks_after_english(self):
         self.opener.cookies.clear()
         self.opener.cookies.set("frontend_lang", "en_US", domain="127.0.0.1", path="/")
-        res = self.url_open("/fr/la-villa")  # lien « Français » : suit la redirection
+        res = self.url_open("/en/la-villa?hbm_lang=fr")  # lien « Français » : suit la redirection
         self.assertIn("Galerie photos", res.text)
         self.assertEqual(self.opener.cookies.get("frontend_lang", domain="127.0.0.1", path="/"), "fr_FR")
         again = self.url_open("/la-villa", allow_redirects=False)

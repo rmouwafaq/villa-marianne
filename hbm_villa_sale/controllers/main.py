@@ -1,5 +1,6 @@
 import json
 
+import werkzeug.utils
 from markupsafe import Markup
 
 from odoo import http
@@ -73,10 +74,16 @@ class HbmVillaSale(Website):
             path = path[3:] or "/"
         fr_url = host + path
         en_url = host + "/en" + ("" if path == "/" else path)
-        # Lien de changement de langue : adresse réellement utilisée par le visiteur (web.base.url peut
-        # être faux), sans schéma pour qu'Odoo ne le re-préfixe pas. « /fr/ » mémorise le choix du français.
-        switch_host = "//" + request.httprequest.host
-        alt_path = switch_host + ("/fr" if lang == "en" else "/en") + ("" if path == "/" else path)
+        # Liens de changement de langue RELATIFS : derrière un proxy qui ne transmet pas l'en-tête Host,
+        # Odoo croit être sur localhost:8069 et tout lien absolu y renverrait le visiteur.
+        # FR -> EN : « /en/... » (Odoo laisse tel quel un lien déjà préfixé).
+        # EN -> FR : « ?hbm_lang=fr » (Odoo ajoute /en/ au lien ; la page redirige vers l'adresse sans préfixe
+        # et mémorise le français dans le cookie de langue).
+        alt_path = (path + "?hbm_lang=fr") if lang == "en" else ("/en" + ("" if path == "/" else path))
+        if lang == "en" and request.params.get("hbm_lang") == "fr":
+            response = werkzeug.utils.redirect(path, 303)  # Location relative, jamais d'hôte
+            response.set_cookie("frontend_lang", "fr_FR", max_age=365 * 24 * 3600, path="/")
+            return response
         page_url = host + path if landing else (en_url if lang == "en" else fr_url)
         og_image = host + "/hbm_villa_sale/static/img/og-default.jpg"
         graph = prop.seo_graph(lang, "blog" if article else key, url=page_url,
