@@ -38,3 +38,4 @@
 .hbm-article h2 { margin-bottom: 4px; }
 .hbm-link { font-weight: 700; color: #1f4e5f; }
 .hbm-gallery-img[data-wide] { grid-column: 1 / -1; }
+.hbm-price small { font-size: 1rem; color: #555; font-weight: 600; }

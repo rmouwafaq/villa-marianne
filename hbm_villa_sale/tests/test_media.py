@@ -53,3 +53,5 @@ class TestMedia(HttpCase):
         self.assertEqual(main.count('data-wide="1"'), 1)
         self.assertIn(manifest[0]["alt_fr"], main)
         self.assertIn("panorama-courtyard-1000.webp", main)
+        # image pleine largeur : le navigateur doit pouvoir choisir la version 1000 px, pas la 640 px
+        self.assertRegex(main, r'<img class="hbm-gallery-img"[^>]*sizes="\(max-width: 960px\) 100vw, 960px"[^>]*data-wide="1"')

@@ -77,7 +77,8 @@
                         <div t-if="space_items" class="hbm-gallery">
                             <t t-foreach="space_items" t-as="img">
                                 <img class="hbm-gallery-img" t-att-src="img['src']" t-att-srcset="img['srcset']"
-                                     sizes="(max-width: 640px) 100vw, 300px" t-att-width="img['width']"
+                                     t-att-sizes="'(max-width: 960px) 100vw, 960px' if img['wide'] else '(max-width: 640px) 100vw, 300px'"
+                                     t-att-width="img['width']"
                                      t-att-height="img['height']" t-att-alt="img['alt']"
                                      t-att-loading="None if first_image else 'lazy'"
                                      t-att-data-wide="'1' if img['wide'] else None"/>
