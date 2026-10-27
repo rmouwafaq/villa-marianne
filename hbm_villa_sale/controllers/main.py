@@ -39,6 +39,7 @@ def _image_attrs(item, lang):
         "height": round(shown * item["ratio"]),
         "alt": item["alt_" + lang],
         "hero": item["hero"],
+        "wide": item["ratio"] < 0.5,  # panorama : pleine largeur dans la galerie
     }
 
 

@@ -114,10 +114,12 @@ class TestLead(HttpCase):
         self.env.cr.execute("UPDATE crm_lead SET create_date=%s WHERE id IN %s",
                             (old, (lead_a.id, lead_b.id)))
         self.env.invalidate_all()
+        # seuls les e-mails de ces deux demandes comptent : la base peut contenir d'autres demandes
         Mail = self.env["mail.mail"]
-        before = Mail.search_count([])
+        mine = [("email_to", "in", ["a@example.com", "b@example.com"])]
+        before = Mail.search_count(mine)
         self.Lead._cron_hbm_followups()
-        self.assertEqual(Mail.search_count([]) - before, 1)
+        self.assertEqual(Mail.search_count(mine) - before, 1)
         self.assertEqual(lead_a.hbm_followup_stage, 1)
         self.assertEqual(lead_b.hbm_followup_stage, 0)
         # J+10 : une seule relance de plus pour a, aucune si on relance tout de suite

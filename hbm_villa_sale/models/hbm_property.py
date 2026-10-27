@@ -14,6 +14,7 @@ class HbmProperty(models.Model):
         "res.currency", required=True,
         default=lambda self: self.env.ref("base.EUR"))
     price = fields.Monetary(currency_field="currency_id")
+    price_negotiable = fields.Boolean(string="Prix négociable", default=True)
     area_m2 = fields.Float(string="Surface (m²)")
     area_label = fields.Selection(
         [("land", "Terrain"), ("built", "Bâti"), ("unknown", "À confirmer")],
@@ -52,7 +53,7 @@ class HbmProperty(models.Model):
         area = f"{fmt(self.area_m2)} m² ({c['area_labels'][self.area_label]})"
         suites = c["suites_fmt"].format(min=self.suites_min, max=self.suites_max)
         values = [
-            ("price", self.price_display()),
+            ("price", self.price_display() + (f" ({c['negotiable']})" if self.price_negotiable else "")),
             ("area", area),
             ("year", str(self.year_built)),
             ("beach", c["beach_fmt"].format(n=self.distance_beach_m)),

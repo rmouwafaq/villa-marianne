@@ -47,6 +47,7 @@
                     <t t-if="key in ('home', 'landing')">
                         <p class="hbm-price">
                             <span t-out="c['price_label']"/> <strong t-out="prop.price_display()"/>
+                            <small t-if="prop.price_negotiable" t-out="c['negotiable']"/>
                         </p>
                     </t>
                     <p t-if="equivalents" class="hbm-equivalents">
@@ -78,7 +79,8 @@
                                 <img class="hbm-gallery-img" t-att-src="img['src']" t-att-srcset="img['srcset']"
                                      sizes="(max-width: 640px) 100vw, 300px" t-att-width="img['width']"
                                      t-att-height="img['height']" t-att-alt="img['alt']"
-                                     t-att-loading="None if first_image else 'lazy'"/>
+                                     t-att-loading="None if first_image else 'lazy'"
+                                     t-att-data-wide="'1' if img['wide'] else None"/>
                                 <t t-set="first_image" t-value="False"/>
                             </t>
                         </div>

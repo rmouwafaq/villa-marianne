@@ -48,7 +48,7 @@ class TestBrochure(HttpCase):
         html, _ = report._render_qweb_html(
             "hbm_villa_sale.report_brochure", [prop.id], data={"lang": "fr"})
         self.assertIn("295" + NBSP + "000", html.decode())
-        self.assertNotIn("280" + NBSP + "000", html.decode())
+        self.assertNotIn("250" + NBSP + "000", html.decode())
 
     def test_brochure_embeds_photos(self):
         """Photos en base64 : wkhtmltopdf ne doit dépendre d'aucune URL réseau."""

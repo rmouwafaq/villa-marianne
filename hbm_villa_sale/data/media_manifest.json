@@ -1,5 +1,18 @@
 [
  {
+  "name": "panorama-courtyard",
+  "space": "exterior",
+  "alt_fr": "Panorama de la cour : piscine, transats et façade de la villa",
+  "alt_en": "Panorama of the courtyard: pool, sun loungers and villa facade",
+  "recent": true,
+  "widths": [
+   640,
+   1000
+  ],
+  "ratio": 0.401,
+  "hero": false
+ },
+ {
   "name": "courtyard-palm",
   "space": "exterior",
   "alt_fr": "Cour carrelée, palmier et façade de la villa",

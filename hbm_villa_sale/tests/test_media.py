@@ -43,3 +43,13 @@ class TestMedia(HttpCase):
     def test_home_has_hero_image(self):
         html = self.url_open("/").text
         self.assertIn('class="hbm-hero-img"', html)
+
+    def test_panorama_is_first_and_full_width(self):
+        manifest = _manifest()
+        self.assertEqual(manifest[0]["name"], "panorama-courtyard")
+        self.opener.cookies.set("frontend_lang", "fr_FR")
+        html = self.url_open("/la-villa").text
+        main = html.split('<main id="hbm-main"')[1].split("</main>")[0]
+        self.assertEqual(main.count('data-wide="1"'), 1)
+        self.assertIn(manifest[0]["alt_fr"], main)
+        self.assertIn("panorama-courtyard-1000.webp", main)

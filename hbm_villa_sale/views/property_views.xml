@@ -10,6 +10,7 @@
                         <group>
                             <field name="name"/>
                             <field name="price"/>
+                            <field name="price_negotiable"/>
                             <field name="currency_id"/>
                             <field name="legal_status"/>
                         </group>

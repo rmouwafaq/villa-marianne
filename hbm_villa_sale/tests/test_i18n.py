@@ -30,6 +30,15 @@ class TestCatalogParity(TransactionCase):
                 self.assertNotEqual(value, fr[path], path)
 
 
+    def test_catalog_wording_requested_by_owner(self):
+        """Pas de « autonomie » ; trajet depuis l'aéroport : 40 minutes par l'autoroute, partout."""
+        for lang, content in CONTENT.items():
+            for path, value in _leaf_paths(content):
+                text = str(value).lower()
+                self.assertNotIn("autonom", text, (lang, path))
+                self.assertNotIn("une heure", text, (lang, path))
+                self.assertNotIn("an hour", text, (lang, path))
+
 @tagged("post_install", "-at_install", "hbm_villa_sale")
 class TestEnglishPages(HttpCase):
 

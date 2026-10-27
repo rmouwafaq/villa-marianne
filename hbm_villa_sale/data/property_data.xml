@@ -3,7 +3,7 @@
     <record id="property_main" model="hbm.property">
         <field name="name">Villa Marianne</field>
         <field name="currency_id" ref="base.EUR"/>
-        <field name="price">280000</field>
+        <field name="price">250000</field>
         <field name="area_m2">1100</field>
         <field name="area_label">unknown</field>
         <field name="year_built">2006</field>

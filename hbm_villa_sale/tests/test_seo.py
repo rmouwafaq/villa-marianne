@@ -12,7 +12,7 @@ class TestJsonLd(TransactionCase):
     def test_json_ld_listing(self):
         data = self.env["hbm.property"].get_main().json_ld("fr")
         self.assertEqual(data["@type"], "RealEstateListing")
-        self.assertEqual(data["offers"]["price"], 280000)
+        self.assertEqual(data["offers"]["price"], 250000)
         self.assertEqual(data["offers"]["priceCurrency"], "EUR")
         address = data["contentLocation"]["address"]
         self.assertEqual(address["addressLocality"], "Saly")

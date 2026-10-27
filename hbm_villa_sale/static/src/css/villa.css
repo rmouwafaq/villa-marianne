@@ -37,3 +37,4 @@
 .hbm-skip:focus { left: 8px; top: 8px; z-index: 2000; padding: 8px 12px; background: #fff; border: 2px solid #1f4e5f; }
 .hbm-article h2 { margin-bottom: 4px; }
 .hbm-link { font-weight: 700; color: #1f4e5f; }
+.hbm-gallery-img[data-wide] { grid-column: 1 / -1; }
